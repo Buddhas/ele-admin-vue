@@ -10,20 +10,7 @@ module.exports = {
     es6: true
   },
   globals: {
-    $: true,
-    wx: true,
-    gio: true,
-    AMap: true,
-    BMap: true,
-    sound: true,
-    define: true,
-    Promise: true,
-    arguments: true,
-    mapActions: true,
-    mapGetters: true,
-    ActiveXObject: true,
-    NyStoreManager: true,
-    mJavaScriptObject: true
+    
   },
   plugins: [
     "html",
@@ -36,7 +23,7 @@ module.exports = {
     'vue/max-attributes-per-line': [
       2,
       {
-        singleline: 3,
+        singleline: 4,
         multiline: {
           max: 1,
           allowFirstLine: false
