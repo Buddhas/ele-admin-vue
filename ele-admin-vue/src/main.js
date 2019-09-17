@@ -10,7 +10,6 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
-import i18n from './locale'
 import filters from './filters'
 import ElementUI from 'element-ui'
 import Service from './services/index'
@@ -29,6 +28,5 @@ Object.keys(filters).forEach(filterName => {
 new Vue({
   router,
   store,
-  i18n,
   render: h => h(App)
 }).$mount('#app')

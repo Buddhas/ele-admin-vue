@@ -8,19 +8,13 @@
  -->
 <template>
   <div id="app" class="full-contain">
-    <Layout>
-      <router-view />
-    </Layout>
+    <router-view />
   </div>
 </template>
 
 <script>
-import Layout from '@/layouts'
 export default {
-  name: 'App',
-  components: {
-    Layout
-  }
+  name: 'App'
 }
 </script>
 
@@ -29,5 +23,5 @@ export default {
 @import './style/reset.scss';
 @import './style/common.scss';
 @import '~@/assets/iconfont/iconfont.css';
-@import './style/base.css'
+@import './style/base.css';
 </style>

@@ -1,6 +1,6 @@
 /*
- * @Descripttion: 
- * @version: 
+ * @Descripttion:
+ * @version:
  * @Author: 笑佛弥勒
  * @Date: 2019-09-15 08:19:18
  * @LastEditors: 笑佛弥勒
@@ -11,47 +11,48 @@ import Router from 'vue-router'
 
 // 按需（懒）加载（vue实现）
 const Login = () => import(/* webpackChunkName: "about" */ '../views/login/login.vue')
-
-// 按需（懒）加载（webpack动态导入）
-// require.ensure() 是 webpack 特有的，已经被 import() 取代。大家理解其作用即可，参考issues —— https://github.com/wangyupo/vue-vuex-router/issues/1
-// const Home = r => require.ensure([], () => r(require('../views/home')), 'home')
-// const About = r => require.ensure([], () => r(require('../views/About')), 'about')
+const Layout = () => import(/* webpackChunkName: "layout" */ '../views/layout/layout.vue')
 
 Vue.use(Router)
 
-let base = `${process.env.BASE_URL}` // 动态获取二级目录
+const base = `${process.env.BASE_URL}` // 动态获取二级目录
 
 const router = new Router({
-    mode: 'history',
-    base: base,
-    routes: [
-        {
-            path: '/login.html',
-            name: 'login',
-            component: Login
-        },
-        {
-            path: '*',
-            redirect: '/'
-        }
-    ],
-    scrollBehavior(to, from, savedPosition) {
-        if (savedPosition) {
-            return savedPosition
-        } else {
-            return {
-                x: 0,
-                y: 0
-            }
-        }
+  mode: 'history',
+  base: base,
+  routes: [
+    {
+      path: '/login.html',
+      name: 'login',
+      component: Login
+    },
+    {
+      path: '/layout.html',
+      name: 'layout',
+      component: Layout
+    },
+    {
+      path: '*',
+      redirect: '/login.html'
     }
-});
+  ],
+  scrollBehavior(to, from, savedPosition) {
+    if (savedPosition) {
+      return savedPosition
+    } else {
+      return {
+        x: 0,
+        y: 0
+      }
+    }
+  }
+})
 
 router.beforeEach((to, from, next) => {
-    // 做些什么，通常权限控制就在这里做哦
+  // 做些什么，通常权限控制就在这里做哦
 
-    // 必须写next()哦，不然你的页面就会白白的，而且不报错，俗称"代码下毒"
-    next();
-});
+  // 必须写next()哦，不然你的页面就会白白的，而且不报错，俗称"代码下毒"
+  next()
+})
 
-export default router;
+export default router

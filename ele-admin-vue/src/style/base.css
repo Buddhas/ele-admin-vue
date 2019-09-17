@@ -1,17 +1,17 @@
 /*文字排版*/
-.f12 {
+.fs12 {
   font-size: 12px;
 }
-.f13 {
+.fs13 {
   font-size: 13px;
 }
-.f14 {
+.fs14 {
   font-size: 14px;
 }
-.f16 {
+.fs16 {
   font-size: 16px;
 }
-.f20 {
+.fs20 {
   font-size: 20px;
 }
 .fb {
@@ -39,14 +39,14 @@
   text-decoration: none;
 }
 /*定位*/
-.tl {
-  text-align: left;
-}
-.tc {
+.textc {
   text-align: center;
 }
-.tr {
+.textr {
   text-align: right;
+}
+.textl {
+  text-align: left;
 }
 .bc {
   margin-left: auto;
@@ -363,4 +363,10 @@
 }
 .w100{
   width: 100%
+}
+.flex1 {
+  flex: 1;
+}
+.white {
+  color: white
 }
