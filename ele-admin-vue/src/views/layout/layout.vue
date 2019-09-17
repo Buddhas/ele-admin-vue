@@ -16,7 +16,7 @@
           <span>王小虎</span>
         </div>
       </el-header>
-      <!-- 内容 -->
+      <!-- 侧边栏+内容 -->
       <el-container style="width:100%">
         <!-- 侧边栏 -->
         <el-aside width="12%" height="100%">
@@ -67,14 +67,36 @@
             </el-submenu>
           </el-menu>
         </el-aside>
-
+        <!-- 内容 -->
+        <el-main :style="{'height': mainHeight}">
+          <keep-alive>
+            <router-view />
+          </keep-alive>
+        </el-main>
       </el-container>
     </el-container>
   </div>
 </template>
 
 <script>
-export default {}
+export default {
+  data() {
+    return {
+      mainHeight: {
+        maxHeight: ''
+      }
+    }
+  },
+  mounted() {
+    this.getMainHeight()
+  },
+  methods: {
+    getMainHeight() {
+      // 减去头部高度+页数高度
+      this.mainHeight = document.body.clientHeight - 60 - 40 + 'px'
+    }
+  }
+}
 </script>
 
 <style lang="scss">
@@ -85,7 +107,9 @@ export default {}
   height: 100%;
 }
 .container-wrapper {
-height: 100%; width: 100%; border: 1px solid #eee
+  height: 100%;
+  width: 100%;
+  border: 1px solid #eee;
 }
 .header-wrapper {
   font-size: 12px;
