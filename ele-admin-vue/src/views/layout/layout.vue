@@ -69,6 +69,10 @@
         </el-aside>
         <!-- 内容 -->
         <el-main :style="{'height': mainHeight}">
+          <el-breadcrumb separator-class="el-icon-arrow-right" class="main-top">
+            <el-breadcrumb-item :to="{ path: '/layout/dataScreen.html' }" class="ml10">首页</el-breadcrumb-item>
+            <el-breadcrumb-item v-for="(item, index) in $route.meta" :key="index">{{item}}</el-breadcrumb-item>
+          </el-breadcrumb>
           <keep-alive>
             <router-view />
           </keep-alive>
@@ -116,5 +120,12 @@ export default {
   background-color: #20a1fc;
   line-height: 60px;
   display: flex;
+}
+.main-top {
+  width: 100%;
+  height: 60px;
+  line-height: 60px;
+  text-align: right;
+  background-color: #eff2f7;
 }
 </style>

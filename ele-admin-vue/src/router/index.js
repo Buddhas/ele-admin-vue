@@ -34,6 +34,7 @@ const router = new Router({
       children: [{
         path: 'dataScreen.html',
         name: 'dataScreen',
+        meta: ['添加数据', '添加商铺'],
         component: dataScreen
       }]
     },
