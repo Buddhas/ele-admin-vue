@@ -12,6 +12,7 @@ import Router from 'vue-router'
 // 按需（懒）加载（vue实现）
 const Login = () => import(/* webpackChunkName: "about" */ '../views/login/login.vue')
 const Layout = () => import(/* webpackChunkName: "layout" */ '../views/layout/layout.vue')
+const dataScreen = () => import(/* webpackChunkName: "layout" */ '../views/dataScreen/dataScreen.vue')
 
 Vue.use(Router)
 
@@ -27,9 +28,14 @@ const router = new Router({
       component: Login
     },
     {
-      path: '/layout.html',
+      path: '/layout',
       name: 'layout',
-      component: Layout
+      component: Layout,
+      children: [{
+        path: 'dataScreen.html',
+        name: 'dataScreen',
+        component: dataScreen
+      }]
     },
     {
       path: '*',

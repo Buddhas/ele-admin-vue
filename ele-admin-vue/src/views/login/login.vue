@@ -41,7 +41,8 @@ export default {
       }
       this.Service.login(params).then(res => {
         if (res.status === 200) {
-          this.$router.push()
+          this.$message.success(res.message)
+          this.$router.push({ path: './layout.html' })
         } else {
           this.$message.error(res.message)
         }
