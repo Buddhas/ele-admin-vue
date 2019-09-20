@@ -1,6 +1,6 @@
 /*
- * @Descripttion:
- * @version:
+ * @Descripttion: 项目入口文件
+ * @version: 1.0.1
  * @Author: 笑佛弥勒
  * @Date: 2019-09-15 11:20:35
  * @LastEditors: 笑佛弥勒

@@ -1,5 +1,6 @@
 import axios from 'axios'
 import env from '@/config/env'
+import Vue from 'vue'
 
 /**
  * 自定义Axios实例
@@ -28,8 +29,12 @@ AJAX.interceptors.request.use(
 // 添加响应拦截器
 AJAX.interceptors.response.use(
   function(response) {
-    // 对响应数据做点什么
-    return response.data
+    let status = [10001, 10002, 10003]
+    if (status.includes(response.data.status)) {
+
+    } else {
+      return response.data
+    }
   },
   function(error) {
     // 对响应错误做点什么，比如400、401、402等等

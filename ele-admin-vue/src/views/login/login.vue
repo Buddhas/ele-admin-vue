@@ -41,6 +41,7 @@ export default {
       }
       this.Service.login(params).then(res => {
         if (res.status === 200) {
+          console.log(res)
           this.$message.success(res.message)
           this.$router.push({ path: './layout/dataScreen.html' })
         } else {
