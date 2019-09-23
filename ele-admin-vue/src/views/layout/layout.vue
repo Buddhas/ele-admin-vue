@@ -3,7 +3,7 @@
     <el-container class="container-wrapper">
       <!-- 头部 -->
       <el-header class="header-wrapper">
-        <span class="textl fs20 white">饿了吗管理后台</span>
+        <span class="textl fs20 white">管理后台</span>
         <div class="textr flex1">
           <el-dropdown>
             <i class="el-icon-setting mr15"></i>

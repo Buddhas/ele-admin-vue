@@ -36,13 +36,14 @@
       </div>
     </div>
     <div class="movements-wrapper">
-      <movements :seven-date="sevenDate" :seven-day="sevenDay" />
+      <movements :seven-date="sevenData" :seven-day="sevenDay" />
     </div>
   </div>
 </template>
 
 <script>
 import movements from '../../components/echarts/echarts'
+import { formatDate } from '../../common/util'
 export default {
   components: {
     movements
@@ -59,19 +60,40 @@ export default {
           order: 0
         }
       },
-      sevenDate: [],
+      dateAWeek: {
+        adminData: [],
+        orderData: []
+      },
+      sevenData: [[], [], []], // 新注册用户, 新增订单, 新增管理员
       sevenDay: []
     }
   },
   mounted() {
     this.getAllData()
+    this.getAWeekDate()
   },
-  
   methods: {
+    // 请求数据
     getAllData() {
       this.Service.getAllData().then(res => {
         this.totalData = res.data.currentData
+        this.getAWeekData(res.data.dateAWeek)
       })
+    },
+    // 格式化最近一周的数据
+    getAWeekData(allData) {
+      for (let i = 6; i >= 0; i--) {
+        this.sevenData[0].push(i * 10) // 新增用户
+        this.sevenData[1].push(allData.orderData[i])
+        this.sevenData[2].push(allData.adminData[i])
+      }
+    },
+    // 格式化最近一周时间
+    getAWeekDate() {
+      const currentDate = new Date()
+      for (let i = 6; i >= 0; --i) {
+        this.sevenDay.push(formatDate(currentDate - i * 1000 * 24 * 60 * 60))
+      }
     }
   }
 }

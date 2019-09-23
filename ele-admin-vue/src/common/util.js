@@ -389,3 +389,14 @@ export const illegalFilter = str => {
   if (regEn.test(str) || regCn.test(str)) return false
   return true
 }
+
+/**
+ * 格式化时间
+ */
+export const formatDate = (date)=> {
+  date = new Date(date)
+  let year = date.getFullYear()
+  let month = date.getMonth() + 1
+  let getDate = date.getDate() 
+  return `${year}-${month}-${getDate}`
+}
