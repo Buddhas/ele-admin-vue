@@ -1,4 +1,3 @@
 # 忽略项目基础代码
-src/components/**/*.*
 
 src/common/*.*

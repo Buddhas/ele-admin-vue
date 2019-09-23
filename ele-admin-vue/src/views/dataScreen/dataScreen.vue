@@ -35,11 +35,18 @@
         </el-row>
       </div>
     </div>
+    <div class="movements-wrapper">
+      <movements :seven-date="sevenDate" :seven-day="sevenDay" />
+    </div>
   </div>
 </template>
 
 <script>
+import movements from '../../components/echarts/echarts'
 export default {
+  components: {
+    movements
+  },
   data() {
     return {
       totalData: {
@@ -51,16 +58,19 @@ export default {
           admin: 0,
           order: 0
         }
-      }
+      },
+      sevenDate: [],
+      sevenDay: []
     }
   },
   mounted() {
     this.getAllData()
   },
+  
   methods: {
     getAllData() {
       this.Service.getAllData().then(res => {
-        this.totalData = res.data
+        this.totalData = res.data.currentData
       })
     }
   }
@@ -93,5 +103,8 @@ export default {
   border-radius: 4px;
   color: black;
   background-color: #e5e9f2;
+}
+.movements-wrapper {
+  margin-top: 60px;
 }
 </style>
