@@ -10,9 +10,11 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 // 按需（懒）加载（vue实现）
-const Login = () => import(/* webpackChunkName: "about" */ '../views/login/login.vue')
-const Layout = () => import(/* webpackChunkName: "layout" */ '../views/layout/layout.vue')
-const dataScreen = () => import(/* webpackChunkName: "layout" */ '../views/dataScreen/dataScreen.vue')
+const login = () => import(/* webpackChunkName: "about" */ '../views/login/login.vue')
+const layout = () => import(/* webpackChunkName: "layout" */ '../views/layout/layout.vue')
+const dataScreen = () => import(/* webpackChunkName: "dataScreen" */ '../views/dataScreen/dataScreen.vue')
+const merchantsList = () => import(/* webpackChunkName: "merchantsList" */ '../views/merchants/merchantsList.vue')
+const addMerchants = () => import(/* webpackChunkName: "addMerchants" */ '../views/merchants/addMerchants.vue')
 
 Vue.use(Router)
 
@@ -25,17 +27,27 @@ const router = new Router({
     {
       path: '/login.html',
       name: 'login',
-      component: Login
+      component: login
     },
     {
       path: '/layout',
       name: 'layout',
-      component: Layout,
+      component: layout,
       children: [{
         path: 'dataScreen.html',
         name: 'dataScreen',
         meta: ['添加数据', '添加商铺'],
         component: dataScreen
+      }, {
+        path: 'merchantsList.html',
+        name: 'merchantsList',
+        meta: ['数据管理', '商家列表'],
+        component: merchantsList
+      }, {
+        path: 'addMerchants.html',
+        name: 'addMerchants',
+        meta: ['添加数据', '添加商铺'],
+        component: addMerchants
       }]
     },
     {
@@ -57,7 +69,6 @@ const router = new Router({
 
 router.beforeEach((to, from, next) => {
   // 做些什么，通常权限控制就在这里做哦
-
   // 必须写next()哦，不然你的页面就会白白的，而且不报错，俗称"代码下毒"
   next()
 })
