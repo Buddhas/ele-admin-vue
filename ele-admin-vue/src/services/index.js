@@ -10,7 +10,12 @@ const getAllData = params => {
   return get('/admin/totalData', params)
 }
 
+// 创建商户
+const createMerchants = params => {
+  return post('/merchants/createMerchants', params)
+}
 export default {
   login,
-  getAllData
+  getAllData,
+  createMerchants
 }

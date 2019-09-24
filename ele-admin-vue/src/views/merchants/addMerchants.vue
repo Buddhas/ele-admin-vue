@@ -110,7 +110,10 @@
 
 <script>
 import { uploadImage } from '../../common/util'
+import { AMapService } from '../../common/mixin'
+
 export default {
+  mixins: [AMapService],
   data() {
     return {
       ruleForm: {
@@ -119,7 +122,7 @@ export default {
         mobile: '',
         synopsis: '', // 商铺简介
         slogan: '', // 商铺标语
-        category: [],
+        category: '1',
         ship_price: 0,
         send_price: 0,
         start_time: '',
@@ -127,8 +130,8 @@ export default {
         shop_avatar: '',
         business_license: '',
         catering_license: '',
-        longitude: '',
-        latitude: ''
+        longitude: '123',
+        latitude: '123'
       },
       rules: {
         name: [{ required: true, message: '请输入商铺名称', trigger: 'blur' }],
@@ -182,11 +185,16 @@ export default {
       categoryOptions: []
     }
   },
+  mounted() {
+    this.geoLocation()
+  },
   methods: {
     submitForm(formName) {
       this.$refs[formName].validate(valid => {
         if (valid) {
-          alert('提交成功')
+          this.Service.createMerchants(this.ruleForm).then((res) => {
+            console.log(res)
+          })
         } else {
           return false
         }
@@ -194,6 +202,10 @@ export default {
     },
     resetForm(formName) {
       this.$refs[formName].resetFields()
+    },
+    // 新建商铺
+    createMerchants() {
+
     },
     // 上传商户头像
     updateShopAvatar(params) {
