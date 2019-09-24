@@ -43,7 +43,7 @@
           @change="handleChange"
         />
       </el-form-item>
-      <el-form-item label="营业时间" prop="">
+      <el-form-item label="营业时间" prop>
         <el-time-select
           v-model="ruleForm.start_time"
           class="mr20"
@@ -66,9 +66,10 @@
       <el-form-item label="上传商铺头像" prop="shop_avatar">
         <el-upload
           class="avatar-uploader"
-          action="https://jsonplaceholder.typicode.com/posts/"
+          action="/merchants/updateShopAvatar"
           :show-file-list="false"
-          :on-success="handleAvatarSuccess"
+          :multiple="false"
+          :on-success="updateAvatarSuccess"
           :before-upload="beforeAvatarUpload"
         >
           <img v-if="ruleForm.shop_avatar" src="ruleForm.shop_avatar" class="avatar" />
@@ -78,9 +79,9 @@
       <el-form-item label="上传营业执照" prop="business_license">
         <el-upload
           class="avatar-uploader"
-          action="https://jsonplaceholder.typicode.com/posts/"
+          action="/merchants/updateBusinessLicense"
           :show-file-list="false"
-          :on-success="handleAvatarSuccess"
+          :on-success="updateAvatarSuccess"
           :before-upload="beforeAvatarUpload"
         >
           <img v-if="ruleForm.business_license" src="ruleForm.business_license" class="avatar" />
@@ -90,12 +91,12 @@
       <el-form-item label="上传餐饮许可证" prop="catering_license">
         <el-upload
           class="avatar-uploader"
-          action="https://jsonplaceholder.typicode.com/posts/"
+          action="/merchants/updateCateringLicense"
           :show-file-list="false"
-          :on-success="handleAvatarSuccess"
+          :on-success="updateAvatarSuccess"
           :before-upload="beforeAvatarUpload"
         >
-          <img v-if="ruleForm.catering_license" src="" class="avatar" />
+          <img v-if="ruleForm.catering_license" src class="avatar" />
           <i v-else class="el-icon-plus avatar-uploader-icon"></i>
         </el-upload>
       </el-form-item>
@@ -108,6 +109,7 @@
 </template>
 
 <script>
+import { uploadImage } from '../../common/util'
 export default {
   data() {
     return {
@@ -177,17 +179,15 @@ export default {
           }
         ]
       },
-      categoryOptions: [
-      ]
+      categoryOptions: []
     }
   },
   methods: {
     submitForm(formName) {
       this.$refs[formName].validate(valid => {
         if (valid) {
-          alert('submit!')
+          alert('提交成功')
         } else {
-          console.log('error submit!!')
           return false
         }
       })
@@ -195,9 +195,33 @@ export default {
     resetForm(formName) {
       this.$refs[formName].resetFields()
     },
+    // 上传商户头像
+    updateShopAvatar(params) {
+      const url = '/merchants/updateShopAvatar'
+      uploadImage(url, params.file)
+    },
     handleChange() {},
-    handleAvatarSuccess() {},
-    beforeAvatarUpload() {}
+    // 上传图片之前做限制
+    beforeAvatarUpload(file) {
+      const typeList = ['image/jpeg', 'image/png']
+      if (!typeList.includes(file.type)) {
+        this.$message.error('仅支持上传jpg和png格式的图片')
+        return false
+      }
+      if (file.size > 1024 * 200) {
+        // 大小超过500kb
+        this.$message.error('图片太大，请重新选择')
+        return false
+      }
+    },
+    // 图片上传成功回调
+    updateAvatarSuccess(res) {
+      if (res.status === 200) {
+        this.ruleForm[res.data.attribute] = res.data.filename
+      } else {
+        this.$message.error(res.message)
+      }
+    }
   }
 }
 </script>

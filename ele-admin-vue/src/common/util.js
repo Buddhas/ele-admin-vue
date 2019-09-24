@@ -1,3 +1,5 @@
+import axios from 'axios'
+
 /**
  * 存储localStorage
  */
@@ -399,4 +401,17 @@ export const formatDate = (date)=> {
   let month = date.getMonth() + 1
   let getDate = date.getDate() 
   return `${year}-${month}-${getDate}`
+}
+
+/**
+ * 上传图片
+ */
+export const uploadImage = (url, file)=> {
+  let uploadData = new FormData()
+  uploadData.append('file', params.file)
+  return axios({
+    url: url,
+    data: formdata,
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+  })
 }
