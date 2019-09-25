@@ -11,7 +11,22 @@
         <el-input v-model="ruleForm.name" class="w500" />
       </el-form-item>
       <el-form-item label="详细地址" prop="address">
-        <el-input v-model="ruleForm.address" class="w500" />
+        <el-select
+          v-model="ruleForm.address"
+          filterable
+          remote
+          reserve-keyword
+          placeholder="请输入商铺地址"
+          class="w500"
+          :remote-method="searchPosition"
+          @change="selectAddr"
+        >
+          <el-option
+            v-for="item in searchRes"
+            :key="item.id"
+            :value="item.name"
+          />
+        </el-select>
       </el-form-item>
       <el-form-item label="联系电话" prop="mobile">
         <el-input v-model="ruleForm.mobile" class="w500" />
@@ -187,12 +202,13 @@ export default {
   },
   mounted() {
     this.geoLocation()
+    this.searchPosition()
   },
   methods: {
     submitForm(formName) {
       this.$refs[formName].validate(valid => {
         if (valid) {
-          this.Service.createMerchants(this.ruleForm).then((res) => {
+          this.Service.createMerchants(this.ruleForm).then(res => {
             console.log(res)
           })
         } else {
@@ -204,9 +220,7 @@ export default {
       this.$refs[formName].resetFields()
     },
     // 新建商铺
-    createMerchants() {
-
-    },
+    createMerchants() {},
     // 上传商户头像
     updateShopAvatar(params) {
       const url = '/merchants/updateShopAvatar'
@@ -233,6 +247,11 @@ export default {
       } else {
         this.$message.error(res.message)
       }
+    },
+    // 选择商铺地址
+    selectAddr(addDetail) {
+      console.log(addDetail)
+      // this.ruleForm.longitude = addDetail.
     }
   }
 }
