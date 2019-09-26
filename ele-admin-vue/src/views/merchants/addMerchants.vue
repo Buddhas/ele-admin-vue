@@ -202,7 +202,7 @@ export default {
   },
   mounted() {
     this.geoLocation()
-    this.searchPosition()
+    this._getCategory()
   },
   methods: {
     submitForm(formName) {
@@ -215,6 +215,29 @@ export default {
           return false
         }
       })
+    },
+    // 获取商家分类
+    _getCategory() {
+      this.Service.getCategory().then(res => {
+        if (res.status === 200) {
+          this.setCategory(res.data, this.categoryOptions)
+        } else {
+          this.$message.error(res.data.message)
+        }
+      })
+    },
+    // 商家分类,递归遍历分类
+    setCategory(allCategory, parentCategory) {
+      for (const item of allCategory) {
+        const params = {}
+        params.value = item.id
+        params.label = item.name
+        if (item.child) {
+          params.children = []
+          this.setCategory(item.child, params.children)
+        }
+        parentCategory.push(params)
+      }
     },
     resetForm(formName) {
       this.$refs[formName].resetFields()

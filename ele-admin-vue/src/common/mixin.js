@@ -23,7 +23,6 @@ export const AMapService = {
           noIpLocate: 0
         })
         geolocation.getCurrentPosition((status,result) => {
-          console.log(result)
           if (status === 'complete') {
             that.longitude = result.position.lng
             that.latitude = result.position.lat

@@ -14,8 +14,14 @@ const getAllData = params => {
 const createMerchants = params => {
   return post('/merchants/createMerchants', params)
 }
+
+// 获取分类
+const getCategory = params => {
+  return get('/admin/getShopCategory', params)
+}
 export default {
   login,
   getAllData,
-  createMerchants
+  createMerchants,
+  getCategory
 }
