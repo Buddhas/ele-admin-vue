@@ -47,9 +47,7 @@ export const AMapService = {
           if (status === 'complete' && result.info === 'OK') {
             that.$nextTick(() => {
               that.searchRes = []
-              
               that.searchRes = result.tips
-              console.log(that.searchRes)
             })
           }
         })

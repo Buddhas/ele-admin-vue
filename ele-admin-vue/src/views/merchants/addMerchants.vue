@@ -24,7 +24,8 @@
           <el-option
             v-for="item in searchRes"
             :key="item.id"
-            :value="item.name"
+            :label="item.district + item.name"
+            :value="item.id"
           />
         </el-select>
       </el-form-item>
@@ -58,9 +59,9 @@
           @change="handleChange"
         />
       </el-form-item>
-      <el-form-item label="营业时间" prop>
+      <el-form-item label="营业时间" prop="business_hours">
         <el-time-select
-          v-model="ruleForm.start_time"
+          v-model="ruleForm.business_hours.start_time"
           class="mr20"
           placeholder="起始时间"
           :picker-options="{
@@ -69,13 +70,13 @@
             end: '18:30'}"
         />
         <el-time-select
-          v-model="ruleForm.end_time"
+          v-model="ruleForm.business_hours.end_time"
           placeholder="结束时间"
           :picker-options="{
             start: '08:30',
             step: '00:15',
             end: '18:30',
-            minTime: ruleForm.start_time}"
+            minTime: ruleForm.business_hours.start_time}"
         />
       </el-form-item>
       <el-form-item label="上传商铺头像" prop="shop_avatar">
@@ -130,6 +131,30 @@ import { AMapService } from '../../common/mixin'
 export default {
   mixins: [AMapService],
   data() {
+    const checkoutMobile = (rule, value, callback) => {
+      const reg = /0?(13|14|15|17|18|19)[0-9]{9}/
+      if (!reg.test(value)) {
+        callback(new Error('请填写正确的手机号码'))
+      } else {
+        callback()
+      }
+    }
+    const checkoutCategory = (rule, value, callback) => {
+      if (value.length === 0) {
+        callback(new Error('请选择商铺分类'))
+      } else {
+        callback()
+      }
+    }
+    const businessHours = (rule, value, callback) => {
+      if (value.start_time.length === 0 || value.end_time.length === 0) {
+        callback(new Error('请选择营业时间'))
+      } else if (value.start_time > value.end_time) {
+        callback(new Error('开始时间必须小于结束时间'))
+      } else {
+        callback()
+      }
+    }
     return {
       ruleForm: {
         name: '',
@@ -137,34 +162,35 @@ export default {
         mobile: '',
         synopsis: '', // 商铺简介
         slogan: '', // 商铺标语
-        category: '1',
+        category: [],
         ship_price: 0,
         send_price: 0,
-        start_time: '',
-        end_time: '',
+        business_hours: {
+          start_time: '',
+          end_time: ''
+        },
         shop_avatar: '',
         business_license: '',
         catering_license: '',
-        longitude: '123',
-        latitude: '123'
+        longitude: 0,
+        latitude: 0
       },
       rules: {
-        name: [{ required: true, message: '请输入商铺名称', trigger: 'blur' }],
+        name: [
+          { required: true, message: '请输入商铺名称', trigger: 'change' }
+        ],
         address: [
           { required: true, message: '请选择商铺地址', trigger: 'change' }
         ],
-        mobile: [
-          { required: true, message: '请填写联系电话', trigger: 'change' }
-        ],
+        mobile: [{ validator: checkoutMobile, trigger: 'change' }],
         synopsis: [
           { required: true, message: '请填写商铺简介', trigger: 'change' }
         ],
         slogan: [
           { required: true, message: '请填写商铺标语', trigger: 'change' }
         ],
-        category: [
-          { required: true, message: '请选择商铺分类', trigger: 'change' }
-        ],
+        category: [{ validator: checkoutCategory, trigger: 'change' }],
+        business_hours: [{ validator: businessHours, trigger: 'change' }],
         ship_price: [
           { required: true, message: '请填写配送费', trigger: 'change' }
         ],
@@ -179,22 +205,6 @@ export default {
         ],
         catering_license: [
           { required: true, message: '请上传餐饮许可证', trigger: 'change' }
-        ],
-        start_time: [
-          {
-            type: 'date',
-            required: true,
-            message: '请选择开始营业时间',
-            trigger: 'change'
-          }
-        ],
-        end_time: [
-          {
-            type: 'date',
-            required: true,
-            message: '请选择结束营业时间',
-            trigger: 'change'
-          }
         ]
       },
       categoryOptions: []
@@ -207,10 +217,11 @@ export default {
   methods: {
     submitForm(formName) {
       this.$refs[formName].validate(valid => {
+        debugger
         if (valid) {
-          this.Service.createMerchants(this.ruleForm).then(res => {
-            console.log(res)
-          })
+          this.ruleForm.start_time = this.ruleForm.business_hours.start_time
+          this.ruleForm.end_time = this.ruleForm.business_hours.end_time
+          this.Service.createMerchants(this.ruleForm).then(res => {})
         } else {
           return false
         }
@@ -272,9 +283,15 @@ export default {
       }
     },
     // 选择商铺地址
-    selectAddr(addDetail) {
-      console.log(addDetail)
-      // this.ruleForm.longitude = addDetail.
+    selectAddr(addId) {
+      for (const item of this.searchRes) {
+        if (item.id === addId) {
+          this.ruleForm.address = item.district + item.name
+          this.ruleForm.longitude = item.location.lng
+          this.ruleForm.latitude = item.location.lat
+          break
+        }
+      }
     }
   }
 }
