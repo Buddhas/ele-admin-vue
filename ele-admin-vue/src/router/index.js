@@ -4,7 +4,7 @@
  * @Author: 笑佛弥勒
  * @Date: 2019-09-15 08:19:18
  * @LastEditors: 笑佛弥勒
- * @LastEditTime: 2019-09-15 11:30:24
+ * @LastEditTime: 2019-09-28 15:47:19
  */
 import Vue from 'vue'
 import Router from 'vue-router'
@@ -15,7 +15,7 @@ const layout = () => import(/* webpackChunkName: "layout" */ '../views/layout/la
 const dataScreen = () => import(/* webpackChunkName: "dataScreen" */ '../views/dataScreen/dataScreen.vue')
 const merchantsList = () => import(/* webpackChunkName: "merchantsList" */ '../views/merchants/merchantsList.vue')
 const addMerchants = () => import(/* webpackChunkName: "addMerchants" */ '../views/merchants/addMerchants.vue')
-
+const addFood = () => import(/* webpackChunkName: "addFood" */ '../views/merchants/addFood.vue')
 Vue.use(Router)
 
 const base = `${process.env.BASE_URL}` // 动态获取二级目录
@@ -48,6 +48,11 @@ const router = new Router({
         name: 'addMerchants',
         meta: ['添加数据', '添加商铺'],
         component: addMerchants
+      },{
+        path: 'addFood.html',
+        name: 'addFood',
+        meta: ['添加数据', '添加食品'],
+        component: addFood
       }]
     },
     {
