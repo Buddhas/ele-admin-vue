@@ -282,7 +282,7 @@ export default {
         this.$message.error(res.message)
       }
     },
-    // 选择商铺地址
+    // 选择商铺地址，设置经纬度
     selectAddr(addId) {
       for (const item of this.searchRes) {
         if (item.id === addId) {

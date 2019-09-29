@@ -19,9 +19,21 @@ const createMerchants = params => {
 const getCategory = params => {
   return get('/admin/getShopCategory', params)
 }
+
+// 创建食品分类
+const createFoodCategory = params => {
+  return post('/food/createFoodCategory', params)
+}
+
+// 获取食品分类
+const getCategoryByPid = params => {
+  return get('/food/getCategoryByPid', params)
+}
 export default {
   login,
   getAllData,
   createMerchants,
-  getCategory
+  getCategory,
+  createFoodCategory,
+  getCategoryByPid
 }
