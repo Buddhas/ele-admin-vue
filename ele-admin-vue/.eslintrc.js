@@ -10,7 +10,7 @@ module.exports = {
     es6: true
   },
   globals: {
-    
+    AMap: true
   },
   plugins: [
     "html",

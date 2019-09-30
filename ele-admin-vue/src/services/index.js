@@ -29,11 +29,19 @@ const createFoodCategory = params => {
 const getCategoryByPid = params => {
   return get('/food/getCategoryByPid', params)
 }
+
+// 新增食品
+const createdFood = params => {
+  console.log('!!!!!!!!')
+  console.log(params)
+  return post('/food/createdFood', params)
+}
 export default {
   login,
   getAllData,
   createMerchants,
   getCategory,
   createFoodCategory,
-  getCategoryByPid
+  getCategoryByPid,
+  createdFood
 }

@@ -1,3 +1,4 @@
+// 高德地图定位
 export const AMapService = {
   data() {
     return {
@@ -14,15 +15,15 @@ export const AMapService = {
     },
     // 定位
     geoLocation() {
-      let that = this
+      const that = this
       this.initAMap()
       this.mapObj.plugin('AMap.Geolocation', function() {
-        let geolocation = new AMap.Geolocation({
-          enableHighAccuracy: true, //是否使用高精度定位，默认:true
-          timeout: 5000, //超过5秒后停止定位，默认：无穷大
+        const geolocation = new AMap.Geolocation({
+          enableHighAccuracy: true, // 是否使用高精度定位，默认:true
+          timeout: 5000, // 超过5秒后停止定位，默认：无穷大
           noIpLocate: 0
         })
-        geolocation.getCurrentPosition((status,result) => {
+        geolocation.getCurrentPosition((status, result) => {
           if (status === 'complete') {
             that.longitude = result.position.lng
             that.latitude = result.position.lat
@@ -34,14 +35,14 @@ export const AMapService = {
     },
     // 高德地图搜索服务
     searchPosition(keyword) {
-      let that = this
-      AMap.plugin('AMap.Autocomplete', function(){
+      const that = this
+      AMap.plugin('AMap.Autocomplete', function() {
         // 实例化Autocomplete
         var autoOptions = {
-          //city 限定城市，默认全国
+          // city 限定城市，默认全国
           city: '全国'
         }
-        var autoComplete= new AMap.Autocomplete(autoOptions);
+        var autoComplete = new AMap.Autocomplete(autoOptions)
         autoComplete.search(keyword, function(status, result) {
           // 搜索成功时，result即是对应的匹配数据
           if (status === 'complete' && result.info === 'OK') {
@@ -52,6 +53,24 @@ export const AMapService = {
           }
         })
       })
+    }
+  }
+}
+
+// 图片上传校验大小
+export const picService = {
+  methods: {
+    checkPic(file, maxSize) {
+      const typeList = ['image/jpeg', 'image/png']
+      if (!typeList.includes(file.type)) {
+        this.$message.error('仅支持上传jpg和png格式的图片')
+        return false
+      }
+      if (file.size > 1024 * maxSize) {
+        // 大小超过500kb
+        this.$message.error('图片太大，请重新选择')
+        return false
+      }
     }
   }
 }

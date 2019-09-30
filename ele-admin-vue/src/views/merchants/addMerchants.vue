@@ -126,10 +126,10 @@
 
 <script>
 import { uploadImage } from '../../common/util'
-import { AMapService } from '../../common/mixin'
+import { AMapService, picService } from '../../common/mixin'
 
 export default {
-  mixins: [AMapService],
+  mixins: [AMapService, picService],
   data() {
     const checkoutMobile = (rule, value, callback) => {
       const reg = /0?(13|14|15|17|18|19)[0-9]{9}/
@@ -217,7 +217,6 @@ export default {
   methods: {
     submitForm(formName) {
       this.$refs[formName].validate(valid => {
-        debugger
         if (valid) {
           this.ruleForm.start_time = this.ruleForm.business_hours.start_time
           this.ruleForm.end_time = this.ruleForm.business_hours.end_time
@@ -263,16 +262,7 @@ export default {
     handleChange() {},
     // 上传图片之前做限制
     beforeAvatarUpload(file) {
-      const typeList = ['image/jpeg', 'image/png']
-      if (!typeList.includes(file.type)) {
-        this.$message.error('仅支持上传jpg和png格式的图片')
-        return false
-      }
-      if (file.size > 1024 * 200) {
-        // 大小超过500kb
-        this.$message.error('图片太大，请重新选择')
-        return false
-      }
+      this.checkPic(file, 200)
     },
     // 图片上传成功回调
     updateAvatarSuccess(res) {

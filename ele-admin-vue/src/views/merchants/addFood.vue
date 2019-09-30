@@ -15,14 +15,15 @@
           <el-form-item label="食品种类">
             <el-select
               v-model="categoryForm.categorySelect"
-              :placeholder="selectValue.label"
+              placeholder="请选择食品种类"
               style="width:100%;"
+              @change="selectFoodCategory"
             >
               <el-option
                 v-for="item in categoryForm.categoryList"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value"
+                :key="item.id"
+                :label="item.name"
+                :value="item.id"
               />
             </el-select>
           </el-form-item>
@@ -40,7 +41,7 @@
             </el-form-item>
           </div>
         </el-row>
-        <div class="add_category_button" @click="showAddCategory = !showAddCategory">
+        <div class="add_category_button pt10" @click="showAddCategory = !showAddCategory">
           <i v-if="showAddCategory" class="el-icon-caret-top edit_icon"></i>
           <i v-else slot="icon" class="el-icon-caret-bottom edit_icon"></i>
           <span>添加食品种类</span>
@@ -48,20 +49,23 @@
       </el-form>
       <!-- 添加食品 -->
       <p class="mb20 mt20">添加食品</p>
-      <el-form label-width="110px" class="form food_form add_category" :model="foodDetail">
+      <el-form
+        ref="foodForm"
+        label-width="110px"
+        class="form food_form add_category"
+        :model="foodDetail"
+        :rules="ruleAddFood"
+      >
         <el-form-item label="食品名称" prop="name">
           <el-input v-model="foodDetail.name" />
         </el-form-item>
         <el-form-item label="食品介绍" prop="introduce">
           <el-input v-model="foodDetail.introduce" />
         </el-form-item>
-        <el-form-item label="食品介绍" prop="introduce">
-          <el-input v-model="foodDetail.name" />
-        </el-form-item>
-        <el-form-item label="上传食品图片" prop="catering_license">
+        <el-form-item label="上传食品图片" prop="image">
           <el-upload
             class="avatar-uploader textl"
-            action="/merchants/updateCateringLicense"
+            action="/food/updateFoodImg"
             :show-file-list="false"
             :on-success="updateAvatarSuccess"
             :before-upload="beforeAvatarUpload"
@@ -71,20 +75,14 @@
           </el-upload>
         </el-form-item>
         <el-form-item label="价格" prop="send_price" class="textl">
-          <el-input-number
-            v-model="foodDetail.price"
-            controls-position="right"
-            :min="1"
-            @change="handleChange"
-          />
+          <el-input-number v-model="foodDetail.price" controls-position="right" :min="1" />
         </el-form-item>
         <el-form-item label="包装费" prop="send_price" class="textl">
-          <el-input-number
-            v-model="foodDetail.package_price"
-            controls-position="right"
-            :min="1"
-            @change="handleChange"
-          />
+          <el-input-number v-model="foodDetail.package_price" controls-position="right" :min="1" />
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" @click="submitFoodForm('foodForm')">提交</el-button>
+          <el-button type="primary" @click="resetFoodForm('foodForm')">重置</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -94,7 +92,9 @@
 </template>
 
 <script>
+import { picService } from '../../common/mixin'
 export default {
+  mixins: [picService],
   data() {
     return {
       categoryForm: {
@@ -106,7 +106,7 @@ export default {
       foodDetail: {
         name: '',
         introduce: '',
-        category: '',
+        category: 0,
         image: '',
         shop_id: '',
         price: '',
@@ -124,6 +124,22 @@ export default {
         description: [
           { required: true, message: '请输入商铺名称', trigger: 'change' }
         ]
+      },
+      ruleAddFood: {
+        name: [
+          { required: true, message: '请输入食品名称', trigger: 'change' }
+        ],
+        introduce: [
+          { required: true, message: '请输入食品介绍', trigger: 'change' }
+        ],
+        image: [{ required: true, message: '请上传食品', trigger: 'change' }],
+        shop_id: [{ required: true, message: '商铺id有误', trigger: 'change' }],
+        price: [
+          { required: true, message: '请输入食品价格', trigger: 'change' }
+        ],
+        package_price: [
+          { required: true, message: '请输入食品包装费', trigger: 'change' }
+        ]
       }
     }
   },
@@ -131,9 +147,11 @@ export default {
     this._getCategoryByPid()
   },
   methods: {
-    selectValue() {},
-    handleChange() {},
-    // 创建食品分类
+    // 选择食品分类
+    selectFoodCategory(val) {
+      this.categoryForm.categorySelect = val
+    },
+    // 创建食品分类按钮
     submitcategoryForm(formName) {
       this.$refs[formName].validate(valid => {
         if (valid) {
@@ -148,18 +166,57 @@ export default {
         name: this.categoryForm.name,
         desc: this.categoryForm.description
       }
-      this.Service.createFoodCategory(params).then(res => {})
+      this.Service.createFoodCategory(params).then(res => {
+        this._getCategoryByPid()
+      })
+    },
+    // 创建食品按钮
+    submitFoodForm(formName) {
+      this.foodDetail.shop_id = this.$route.query.shop_id || '123'
+      this.foodDetail.category = this.categoryForm.categorySelect // 食品分类
+      if (Number(this.foodDetail.category) === 0) {
+        this.$message.error('请选择食品分类')
+        return
+      }
+      this.$refs[formName].validate(valid => {
+        if (valid) {
+          this._createdFood()
+        }
+      })
+    },
+    // 新增食品
+    _createdFood() {
+      this.Service.createdFood(this.foodDetail).then(res => {
+        if (res.status === 200) {
+          this.$message.success(res.message)
+          this.resetFoodForm('foodForm')
+        }
+      })
     },
     // 图片上传之前做判断
-    beforeAvatarUpload() {},
+    beforeAvatarUpload(file) {
+      this.checkPic(file, 200)
+    },
     // 图片上传成功回调
-    updateAvatarSuccess() {},
+    updateAvatarSuccess(res) {
+      if (res.status === 200) {
+        this.foodDetail[res.data.attribute] = res.data.filename
+      } else {
+        this.$message.error(res.message)
+      }
+    },
     // 获取食品分类
     _getCategoryByPid() {
       const params = {
         pid: this.pid
       }
-      this.Service.getCategoryByPid(params).then(() => {})
+      this.Service.getCategoryByPid(params).then(res => {
+        this.categoryForm.categoryList = res.data
+      })
+    },
+    // 重置食品信息
+    resetFoodForm(formName) {
+      this.$refs[formName].resetFields()
     }
   }
 }
