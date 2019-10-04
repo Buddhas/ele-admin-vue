@@ -220,7 +220,14 @@ export default {
         if (valid) {
           this.ruleForm.start_time = this.ruleForm.business_hours.start_time
           this.ruleForm.end_time = this.ruleForm.business_hours.end_time
-          this.Service.createMerchants(this.ruleForm).then(res => {})
+          this.Service.createMerchants(this.ruleForm).then(res => {
+            if (res.status === 200) {
+              this.$message.success(res.message)
+              this.$refs[formName].resetFields()
+            } else {
+              this.$message.error(res.message)
+            }
+          })
         } else {
           return false
         }

@@ -32,10 +32,20 @@ const getCategoryByPid = params => {
 
 // 新增食品
 const createdFood = params => {
-  console.log('!!!!!!!!')
-  console.log(params)
   return post('/food/createdFood', params)
 }
+
+// 商家列表
+const findMerchantsByPage = params => {
+  return get('/merchants/findMerchantsByPage', params)
+}
+
+// 删除商家 
+const deleteMerchants = params => {
+  return post('/merchants/deleteMerchants', params)
+}
+
+
 export default {
   login,
   getAllData,
@@ -43,5 +53,7 @@ export default {
   getCategory,
   createFoodCategory,
   getCategoryByPid,
-  createdFood
+  createdFood,
+  findMerchantsByPage,
+  deleteMerchants
 }

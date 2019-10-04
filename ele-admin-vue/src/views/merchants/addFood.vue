@@ -74,10 +74,10 @@
             <i v-else class="el-icon-plus avatar-uploader-icon"></i>
           </el-upload>
         </el-form-item>
-        <el-form-item label="价格" prop="send_price" class="textl">
+        <el-form-item label="* 价格" prop="send_price" class="textl">
           <el-input-number v-model="foodDetail.price" controls-position="right" :min="1" />
         </el-form-item>
-        <el-form-item label="包装费" prop="send_price" class="textl">
+        <el-form-item label="* 包装费" prop="send_price" class="textl">
           <el-input-number v-model="foodDetail.package_price" controls-position="right" :min="1" />
         </el-form-item>
         <el-form-item>
@@ -167,7 +167,13 @@ export default {
         desc: this.categoryForm.description
       }
       this.Service.createFoodCategory(params).then(res => {
-        this._getCategoryByPid()
+        if (res.status === 200) {
+          this.$message.success(res.message)
+          this.$refs['categoryForm'].resetFields()
+          this._getCategoryByPid()
+        } else {
+          this.$message.error(res.message)
+        }
       })
     },
     // 创建食品按钮
