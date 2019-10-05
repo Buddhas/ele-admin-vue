@@ -45,6 +45,35 @@ const deleteMerchants = params => {
   return post('/merchants/deleteMerchants', params)
 }
 
+// 获取单个商家
+const getMerchantsById = params => {
+  return get('/merchants/getMerchantsById', params)
+}
+
+// 更新商家
+const updateMerchants = params => {
+  return post('/merchants/updateMerchants', params)
+}
+ 
+// 获取食品列表
+const findFoodByPage = params => {
+  return get('/food/findFoodByPage', params)
+}
+
+// 删除食品 deleteFood
+const deleteFood = params => {
+  return get('/food/deleteFood', params)
+}
+
+// 获取单个食品详情
+const getFoodById = params => {
+  return get('/food/getFoodById', params)
+}
+
+// 更新食品属性
+const updatedFood = params => {
+  return post('/food/updatedFood', params) 
+}
 
 export default {
   login,
@@ -55,5 +84,11 @@ export default {
   getCategoryByPid,
   createdFood,
   findMerchantsByPage,
-  deleteMerchants
+  deleteMerchants,
+  getMerchantsById,
+  updateMerchants,
+  findFoodByPage,
+  deleteFood,
+  getFoodById,
+  updatedFood
 }

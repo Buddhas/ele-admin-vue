@@ -13,9 +13,10 @@ import Router from 'vue-router'
 const login = () => import(/* webpackChunkName: "about" */ '../views/login/login.vue')
 const layout = () => import(/* webpackChunkName: "layout" */ '../views/layout/layout.vue')
 const dataScreen = () => import(/* webpackChunkName: "dataScreen" */ '../views/dataScreen/dataScreen.vue')
-const merchantsList = () => import(/* webpackChunkName: "merchantsList" */ '../views/dataManage/merchantsList.vue')
 const addMerchants = () => import(/* webpackChunkName: "addMerchants" */ '../views/merchants/addMerchants.vue')
 const addFood = () => import(/* webpackChunkName: "addFood" */ '../views/merchants/addFood.vue')
+const merchantsList = () => import(/* webpackChunkName: "merchantsList" */ '../views/dataManage/merchantsList.vue')
+const foodList = () => import(/* webpackChunkName: "merchantsList" */ '../views/dataManage/foodList.vue')
 Vue.use(Router)
 
 const base = `${process.env.BASE_URL}` // 动态获取二级目录
@@ -53,6 +54,11 @@ const router = new Router({
         name: 'addFood',
         meta: ['添加数据', '添加食品'],
         component: addFood
+      },{
+        path: 'foodList.html',
+        name: 'foodList',
+        meta: ['添加数据', '食品列表'],
+        component: foodList
       }]
     },
     {

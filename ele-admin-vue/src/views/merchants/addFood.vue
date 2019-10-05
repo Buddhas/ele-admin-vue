@@ -81,7 +81,7 @@
           <el-input-number v-model="foodDetail.package_price" controls-position="right" :min="1" />
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="submitFoodForm('foodForm')">提交</el-button>
+          <el-button type="primary" @click="submitFoodForm('foodForm')">{{ btnText }}</el-button>
           <el-button type="primary" @click="resetFoodForm('foodForm')">重置</el-button>
         </el-form-item>
       </el-form>
@@ -113,9 +113,11 @@ export default {
         package_price: ''
       },
       activeNames: [],
-      showAddCategory: true,
+      showAddCategory: false,
       showTest: {},
       pid: '123',
+      editFlag: false,
+      btnText: '立即添加',
       ruleAddFoodCategory: {
         // 添加食品分类校验规则
         name: [
@@ -144,9 +146,33 @@ export default {
     }
   },
   mounted() {
-    this._getCategoryByPid()
+    this._getCategoryByPid().then(() => {
+      this.isEdit()
+    })
   },
   methods: {
+    // 是否编辑
+    isEdit() {
+      if (this.$route.query.isEdit && this.$route.query.isEdit == '1') {
+        this.editFlag = true
+        this.btnText = '立即更新'
+        this._getFoodById()
+      }
+    },
+    // 获取单个食品详情
+    _getFoodById() {
+      const params = {
+        foodId: this.$route.query.foodId
+      }
+      this.Service.getFoodById(params).then((res) => {
+        if (res.status === 200) {
+          this.foodDetail = res.data[0]
+          this.categoryForm.categorySelect = Number(this.foodDetail.category)
+        } else {
+          this.$message.success(res.message)
+        }
+      })
+    },
     // 选择食品分类
     selectFoodCategory(val) {
       this.categoryForm.categorySelect = val
@@ -186,7 +212,16 @@ export default {
       }
       this.$refs[formName].validate(valid => {
         if (valid) {
-          this._createdFood()
+          this.editFlag ? this._updateFood() : this._createdFood()
+        }
+      })
+    },
+    // 编辑食品
+    _updateFood() {
+      this.Service.updatedFood(this.foodDetail).then(res => {
+        if (res.status === 200) {
+          this.$message.success(res.message)
+          this.$router.go(-1)
         }
       })
     },
@@ -216,7 +251,7 @@ export default {
       const params = {
         pid: this.pid
       }
-      this.Service.getCategoryByPid(params).then(res => {
+      return this.Service.getCategoryByPid(params).then(res => {
         this.categoryForm.categoryList = res.data
       })
     },

@@ -36,7 +36,7 @@
               </template>
               <el-menu-item index="userList">用户列表</el-menu-item>
               <el-menu-item index="merchantsList.html">商家列表</el-menu-item>
-              <el-menu-item index="foodList">食品列表</el-menu-item>
+              <el-menu-item index="foodList.html">食品列表</el-menu-item>
               <el-menu-item index="orderList">订单列表</el-menu-item>
               <el-menu-item index="adminList">管理员列表</el-menu-item>
             </el-submenu>

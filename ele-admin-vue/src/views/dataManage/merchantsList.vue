@@ -33,7 +33,7 @@
           <el-button size="mini" @click="handleEdit(scope.$index, scope.row)"
             >编辑</el-button
           >
-          <el-button size="mini" @click="handleEdit(scope.$index, scope.row)"
+          <el-button size="mini" @click="handleAdd(scope.$index, scope.row)"
             >添加食品</el-button
           >
           <el-button
@@ -67,8 +67,7 @@
         merchantsData: [],
         page: 1,
         pageSize: 20,
-        totalPage: 0,
-        merchantsCategory: []
+        totalPage: 0
       }
     },
     methods: {
@@ -77,6 +76,10 @@
         this.page = val
         this._getMerchants()
       },
+      handleEdit(index, data) {
+        this.$router.push({ path: '../layout/addMerchants.html', query: {isEdit: 1, merchantsId: data.id}})
+      },
+      handleAdd() {},
       // 获取商家分类
       _getCategory() {
         this.Service.getCategory().then(res => {
@@ -136,9 +139,10 @@
         const params = {
           id: data.id
         }
-        this.Service.deleteMerchants(params).then((res) => {
+        this.Service.deleteMerchants(params).then(res => {
           if (res.status === 200) {
             this.$message.success(res.message)
+            this.page = 1
             this._getMerchants()
           } else {
             this.$message.error(res.message)
