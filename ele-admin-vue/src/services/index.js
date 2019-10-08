@@ -75,6 +75,11 @@ const updatedFood = params => {
   return post('/food/updatedFood', params)
 }
 
+// 获取当前用户信息
+const getCurrentAdmin = params => {
+  return get('/admin/getCurrentAdmin', params)
+}
+
 export default {
   login,
   getAllData,
@@ -90,5 +95,6 @@ export default {
   findFoodByPage,
   deleteFood,
   getFoodById,
-  updatedFood
+  updatedFood,
+  getCurrentAdmin
 }
