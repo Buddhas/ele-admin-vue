@@ -230,14 +230,17 @@ export default {
       const params = {
         id: this.$route.query.merchantsId
       }
-      this.Service.getMerchantsById(params).then((res) => { 
+      this.Service.getMerchantsById(params).then(res => {
         if (res.status === 200) {
-          let result = res.data[0]
+          const result = res.data[0]
           result.business_hours = {}
           result.category = []
           result.business_hours.start_time = result.start_time
           result.business_hours.end_time = result.end_time
-          result.category.push(Number(result.first_category), Number(result.second_category))
+          result.category.push(
+            Number(result.first_category),
+            Number(result.second_category)
+          )
           delete result.start_time
           delete result.end_time
           delete result.first_category
@@ -249,27 +252,27 @@ export default {
     // 编辑商铺
     _updateMerchants() {
       this.Service.updateMerchants(this.ruleForm).then(res => {
-            if (res.status === 200) {
-              this.$message.success(res.message)
-              this.$router.go(-1)
-            } else {
-              this.$message.error(res.message)
-            }
-          })
+        if (res.status === 200) {
+          this.$message.success(res.message)
+          this.$router.go(-1)
+        } else {
+          this.$message.error(res.message)
+        }
+      })
     },
     // 新增商铺
     _createMerchants(formName) {
       this.Service.createMerchants(this.ruleForm).then(res => {
-            if (res.status === 200) {
-              this.$message.success(res.message)
-              this.$refs[formName].resetFields()
-              this.ruleForm.business_hours = {}
-              this.ruleForm.business_hours.start_time = ''
-              this.ruleForm.business_hours.end_time = ''
-            } else {
-              this.$message.error(res.message)
-            }
-          })
+        if (res.status === 200) {
+          this.$message.success(res.message)
+          this.$refs[formName].resetFields()
+          this.ruleForm.business_hours = {}
+          this.ruleForm.business_hours.start_time = ''
+          this.ruleForm.business_hours.end_time = ''
+        } else {
+          this.$message.error(res.message)
+        }
+      })
     },
     // 点击提交
     submitForm(formName) {
@@ -277,7 +280,9 @@ export default {
         if (valid) {
           this.ruleForm.start_time = this.ruleForm.business_hours.start_time
           this.ruleForm.end_time = this.ruleForm.business_hours.end_time
-          this.editFlag ? this._updateMerchants : this._createMerchants(formName)
+          this.editFlag
+            ? this._updateMerchants
+            : this._createMerchants(formName)
         } else {
           return false
         }

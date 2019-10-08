@@ -40,7 +40,7 @@ const findMerchantsByPage = params => {
   return get('/merchants/findMerchantsByPage', params)
 }
 
-// 删除商家 
+// 删除商家
 const deleteMerchants = params => {
   return post('/merchants/deleteMerchants', params)
 }
@@ -54,7 +54,7 @@ const getMerchantsById = params => {
 const updateMerchants = params => {
   return post('/merchants/updateMerchants', params)
 }
- 
+
 // 获取食品列表
 const findFoodByPage = params => {
   return get('/food/findFoodByPage', params)
@@ -72,7 +72,7 @@ const getFoodById = params => {
 
 // 更新食品属性
 const updatedFood = params => {
-  return post('/food/updatedFood', params) 
+  return post('/food/updatedFood', params)
 }
 
 export default {
