@@ -281,7 +281,7 @@ export default {
           this.ruleForm.start_time = this.ruleForm.business_hours.start_time
           this.ruleForm.end_time = this.ruleForm.business_hours.end_time
           this.editFlag
-            ? this._updateMerchants
+            ? this._updateMerchants(formName)
             : this._createMerchants(formName)
         } else {
           return false

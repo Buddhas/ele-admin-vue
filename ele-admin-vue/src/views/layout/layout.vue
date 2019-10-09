@@ -21,6 +21,7 @@
         <!-- 侧边栏 -->
         <el-aside width="12%" height="100%">
           <el-menu
+            :default-active="defaultActive"
             background-color="#FFFEFF"
             text-color="black"
             active-text-color="#20A1FC"
@@ -73,7 +74,7 @@
             <el-breadcrumb-item :to="{ path: '/layout/dataScreen.html' }" class="ml10">首页</el-breadcrumb-item>
             <el-breadcrumb-item v-for="(item, index) in $route.meta" :key="index">{{item}}</el-breadcrumb-item>
           </el-breadcrumb>
-            <router-view />
+          <router-view />
         </el-main>
       </el-container>
     </el-container>
@@ -87,6 +88,12 @@ export default {
       mainHeight: {
         maxHeight: ''
       }
+    }
+  },
+  computed: {
+    defaultActive: function() {
+      // 路由改变会触发replace
+      return this.$route.path.replace('/layout/', '')
     }
   },
   mounted() {
