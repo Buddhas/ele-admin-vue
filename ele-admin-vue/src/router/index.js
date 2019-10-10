@@ -10,30 +10,18 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 // 按需（懒）加载（vue实现）
-const login = () =>
-  import(/* webpackChunkName: "about" */ '../views/login/login.vue')
-const layout = () =>
-  import(/* webpackChunkName: "layout" */ '../views/layout/layout.vue')
-const dataScreen = () =>
-  import(
-    /* webpackChunkName: "dataScreen" */ '../views/dataScreen/dataScreen.vue'
-  )
-const addMerchants = () =>
-  import(
-    /* webpackChunkName: "addMerchants" */ '../views/merchants/addMerchants.vue'
-  )
-const addFood = () =>
-  import(/* webpackChunkName: "addFood" */ '../views/merchants/addFood.vue')
-const merchantsList = () =>
-  import(
-    /* webpackChunkName: "merchantsList" */ '../views/dataManage/merchantsList.vue'
-  )
-const foodList = () =>
-  import(
-    /* webpackChunkName: "merchantsList" */ '../views/dataManage/foodList.vue'
-  )
-const setting = () =>
-  import(/* webpackChunkName: "merchantsList" */ '../views/setting/setting.vue')
+const login = () => import(/* webpackChunkName: "about" */ '../views/login/login.vue')
+const layout = () => import(/* webpackChunkName: "layout" */ '../views/layout/layout.vue')
+const dataScreen = () => import(/* webpackChunkName: "dataScreen" */ '../views/dataScreen/dataScreen.vue')
+const addMerchants = () => import(/* webpackChunkName: "addMerchants" */ '../views/merchants/addMerchants.vue')
+const addFood = () => import(/* webpackChunkName: "addFood" */ '../views/merchants/addFood.vue')
+const merchantsList = () => import(/* webpackChunkName: "merchantsList" */ '../views/dataManage/merchantsList.vue')
+const foodList = () => import(/* webpackChunkName: "foodList" */ '../views/dataManage/foodList.vue')
+const adminList = () => import(/* webpackChunkName: "adminList" */ '../views/dataManage/adminList.vue')
+const orderList = () => import(/* webpackChunkName: "orderList" */ '../views/dataManage/orderList.vue')
+const userList = () => import(/* webpackChunkName: "userList" */ '../views/dataManage/userList.vue')
+const setting = () => import(/* webpackChunkName: "setting" */ '../views/setting/setting.vue')
+
 Vue.use(Router)
 
 const base = `${process.env.BASE_URL}` // 动态获取二级目录
@@ -87,6 +75,24 @@ const router = new Router({
           name: 'setting',
           meta: ['设置', '管理员设置'],
           component: setting
+        },
+        {
+          path: 'adminList.html',
+          name: 'adminList',
+          meta: ['设置', '管理员列表'],
+          component: adminList
+        },
+        {
+          path: 'orderList.html',
+          name: 'orderList',
+          meta: ['设置', '订单列表'],
+          component: orderList
+        },
+        {
+          path: 'userList.html',
+          name: 'userList',
+          meta: ['设置', '用户列表'],
+          component: userList
         }
       ]
     },

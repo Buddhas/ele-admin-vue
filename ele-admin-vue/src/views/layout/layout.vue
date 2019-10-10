@@ -8,9 +8,7 @@
           <el-dropdown>
             <i class="el-icon-setting mr15"></i>
             <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item>查看</el-dropdown-item>
-              <el-dropdown-item>新增</el-dropdown-item>
-              <el-dropdown-item>删除</el-dropdown-item>
+              <el-dropdown-item>退出登录</el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
           <span>王小虎</span>
@@ -35,11 +33,11 @@
               <template slot="title">
                 <i class="el-icon-document"></i>数据管理
               </template>
-              <el-menu-item index="userList">用户列表</el-menu-item>
+              <el-menu-item index="userList.html">用户列表</el-menu-item>
               <el-menu-item index="merchantsList.html">商家列表</el-menu-item>
               <el-menu-item index="foodList.html">食品列表</el-menu-item>
-              <el-menu-item index="orderList">订单列表</el-menu-item>
-              <el-menu-item index="adminList">管理员列表</el-menu-item>
+              <el-menu-item index="orderList.html">订单列表</el-menu-item>
+              <el-menu-item index="adminList.html">管理员列表</el-menu-item>
             </el-submenu>
             <el-submenu index="3">
               <template slot="title">
@@ -58,7 +56,7 @@
               <template slot="title">
                 <i class="el-icon-setting"></i>设置
               </template>
-              <el-menu-item index="adminSet">管理员设置</el-menu-item>
+              <el-menu-item index="setting.html">管理员设置</el-menu-item>
             </el-submenu>
             <el-submenu index="6">
               <template slot="title">

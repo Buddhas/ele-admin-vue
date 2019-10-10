@@ -60,7 +60,7 @@ const findFoodByPage = params => {
   return get('/food/findFoodByPage', params)
 }
 
-// 删除食品 deleteFood
+// 删除食品
 const deleteFood = params => {
   return get('/food/deleteFood', params)
 }
@@ -80,6 +80,11 @@ const getCurrentAdmin = params => {
   return get('/admin/getCurrentAdmin', params)
 }
 
+// 获取管理员列表
+const findAdminByPage = params => {
+  return get('/admin/findAdminByPage', params)
+}
+
 export default {
   login,
   getAllData,
@@ -96,5 +101,6 @@ export default {
   deleteFood,
   getFoodById,
   updatedFood,
-  getCurrentAdmin
+  getCurrentAdmin,
+  findAdminByPage
 }
