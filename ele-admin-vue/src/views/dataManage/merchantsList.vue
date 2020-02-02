@@ -31,7 +31,7 @@
       <el-table-column label="操作" prop="desc">
         <template slot-scope="scope">
           <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
-          <el-button size="mini" @click="handleAdd(scope.$index, scope.row)">添加食品</el-button>
+          <el-button size="mini" @click="handleAdd(scope.row)">添加食品</el-button>
           <el-button size="mini" type="danger" @click="handleDelete(scope.$index, scope.row)">删除</el-button>
         </template>
       </el-table-column>
@@ -72,7 +72,9 @@ export default {
         query: { isEdit: 1, merchantsId: data.id }
       })
     },
-    handleAdd() {},
+    handleAdd(detail) {
+      this.$router.push({ path: '/layout/addFood.html', query: { foodId: detail.id }})
+    },
     // 获取商家分类
     _getCategory() {
       this.Service.getCategory().then(res => {

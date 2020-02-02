@@ -57,6 +57,22 @@
           :max="20"
         />
       </el-form-item>
+      <el-form-item label="满减优惠" prop="full_deduction">
+        <span style="padding-right: 5px">满</span>
+        <el-input-number
+          v-model="ruleForm.full_deduction.top_up"
+          controls-position="right"
+          :min="1"
+          :max="20"
+        />
+        <span style="padding: 5px">减</span>
+        <el-input-number
+          v-model="ruleForm.full_deduction.minus"
+          controls-position="right"
+          :min="1"
+          :max="20"
+        />
+      </el-form-item>
       <el-form-item label="营业时间" prop="business_hours">
         <el-time-select
           v-model="ruleForm.business_hours.start_time"
@@ -153,6 +169,15 @@ export default {
         callback()
       }
     }
+    const fullDeduction = (rule, value, callback) => {
+      if (value.top_up === 0 || value.minus === 0) {
+        callback(new Error('请填写满减额'))
+      } else if (value.top_up <= value.minus) {
+        callback(new Error('满减额度错误'))
+      } else {
+        callback()
+      }
+    }
     return {
       ruleForm: {
         name: '',
@@ -166,6 +191,10 @@ export default {
         business_hours: {
           start_time: '',
           end_time: ''
+        },
+        full_deduction: { // 满减额
+          top_up: '',
+          minus: ''
         },
         shop_avatar: '',
         business_license: '',
@@ -189,6 +218,7 @@ export default {
         ],
         category: [{ validator: checkoutCategory, trigger: 'change' }],
         business_hours: [{ validator: businessHours, trigger: 'change' }],
+        full_deduction: [{ validator: fullDeduction, trigger: 'change' }],
         ship_price: [
           { required: true, message: '请填写配送费', trigger: 'change' }
         ],
@@ -234,9 +264,12 @@ export default {
         if (res.status === 200) {
           const result = res.data[0]
           result.business_hours = {}
+          result.full_deduction = {}
           result.category = []
           result.business_hours.start_time = result.start_time
           result.business_hours.end_time = result.end_time
+          result.full_deduction.top_up = result.top_up
+          result.full_deduction.minus = result.minus
           result.category.push(
             Number(result.first_category),
             Number(result.second_category)
@@ -245,6 +278,8 @@ export default {
           delete result.end_time
           delete result.first_category
           delete result.second_category
+          delete result.top_up
+          delete result.minus
           this.ruleForm = result
         }
       })
@@ -267,8 +302,11 @@ export default {
           this.$message.success(res.message)
           this.$refs[formName].resetFields()
           this.ruleForm.business_hours = {}
+          this.ruleForm.full_deduction = {}
           this.ruleForm.business_hours.start_time = ''
           this.ruleForm.business_hours.end_time = ''
+          this.ruleForm.full_deduction.top_up = ''
+          this.ruleForm.full_deduction.minus = ''
         } else {
           this.$message.error(res.message)
         }
@@ -280,6 +318,8 @@ export default {
         if (valid) {
           this.ruleForm.start_time = this.ruleForm.business_hours.start_time
           this.ruleForm.end_time = this.ruleForm.business_hours.end_time
+          this.ruleForm.top_up = this.ruleForm.full_deduction.top_up
+          this.ruleForm.minus = this.ruleForm.full_deduction.minus
           this.editFlag
             ? this._updateMerchants(formName)
             : this._createMerchants(formName)

@@ -115,7 +115,7 @@ export default {
       activeNames: [],
       showAddCategory: false,
       showTest: {},
-      pid: '123',
+      pid: this.$route.query.foodId,
       editFlag: false,
       btnText: '立即添加',
       ruleAddFoodCategory: {
@@ -145,9 +145,11 @@ export default {
       }
     }
   },
-  mounted() {
+  created() {
     this._getCategoryByPid().then(() => {
-      this.isEdit()
+      if (this.pid) {
+        this.isEdit()
+      }
     })
   },
   methods: {
