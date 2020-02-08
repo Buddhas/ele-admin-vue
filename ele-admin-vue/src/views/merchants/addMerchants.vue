@@ -102,7 +102,7 @@
           :on-success="updateAvatarSuccess"
           :before-upload="beforeAvatarUpload"
         >
-          <img v-if="ruleForm.shop_avatar" src="ruleForm.shop_avatar" class="avatar" />
+          <img v-if="ruleForm.shop_avatar" :src="ruleForm.shop_avatar" class="avatar" />
           <i v-else class="el-icon-plus avatar-uploader-icon"></i>
         </el-upload>
       </el-form-item>
@@ -114,7 +114,7 @@
           :on-success="updateAvatarSuccess"
           :before-upload="beforeAvatarUpload"
         >
-          <img v-if="ruleForm.business_license" src="ruleForm.business_license" class="avatar" />
+          <img v-if="ruleForm.business_license" :src="ruleForm.business_license" class="avatar" />
           <i v-else class="el-icon-plus avatar-uploader-icon"></i>
         </el-upload>
       </el-form-item>
@@ -126,7 +126,19 @@
           :on-success="updateAvatarSuccess"
           :before-upload="beforeAvatarUpload"
         >
-          <img v-if="ruleForm.catering_license" src class="avatar" />
+          <img v-if="ruleForm.catering_license" :src="ruleForm.catering_license" class="avatar" />
+          <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+        </el-upload>
+      </el-form-item>
+      <el-form-item label="上传商家环境" prop="shop_environment">
+        <el-upload
+          class="avatar-uploader"
+          action="/merchants/updateShopEnv"
+          :show-file-list="false"
+          :on-success="updateAvatarSuccess"
+          :before-upload="beforeAvatarUpload"
+        >
+          <img v-if="ruleForm.shop_environment" :src="ruleForm.shop_environment" class="avatar" />
           <i v-else class="el-icon-plus avatar-uploader-icon"></i>
         </el-upload>
       </el-form-item>
@@ -197,6 +209,7 @@ export default {
           minus: ''
         },
         shop_avatar: '',
+        shop_environment: '',
         business_license: '',
         catering_license: '',
         longitude: 0,
@@ -227,6 +240,9 @@ export default {
         ],
         shop_avatar: [
           { required: true, message: '请上传商铺头像', trigger: 'change' }
+        ],
+        shop_environment: [
+          { required: true, message: '请上传商家环境图片', trigger: 'change' }
         ],
         business_license: [
           { required: true, message: '请上传营业执照', trigger: 'change' }
