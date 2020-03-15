@@ -10,20 +10,20 @@
  * | wechat  |   √   |
  *
  */
-let sniff = {
+const sniff = {
   browsers: {},
   info: {}
 } // 结果
 
-let ua = navigator.userAgent,
-  platform = navigator.platform,
-  android = ua.match(/(Android);?[\s\/]+([\d.]+)?/), // 匹配 android
-  ipad = ua.match(/(iPad).*OS\s([\d_]+)/), // 匹配 ipad
-  ipod = ua.match(/(iPod)(.*OS\s([\d_]+))?/), // 匹配 ipod
-  iphone = ua.match(/(iPhone\sOS)\s([\d_]+)/), // 匹配 iphone
-  webApp = ua.indexOf('Safari') === -1 // 匹配 桌面 webApp
+const ua = navigator.userAgent
+const platform = navigator.platform
+const android = ua.match(/(Android);?[\s\/]+([\d.]+)?/) // 匹配 android
+const ipad = ua.match(/(iPad).*OS\s([\d_]+)/) // 匹配 ipad
+const ipod = ua.match(/(iPod)(.*OS\s([\d_]+))?/) // 匹配 ipod
+const iphone = ua.match(/(iPhone\sOS)\s([\d_]+)/) // 匹配 iphone
+let webApp = ua.indexOf('Safari') === -1 // 匹配 桌面 webApp
 
-let browsers = {
+const browsers = {
   wechat: ua.match(/(MicroMessenger)\/([\d\.]+)/), // 匹配 weChat
   alipay: ua.match(/(AlipayClient)\/([\d\.]+)/), // 匹配 支付宝
   qq: ua.match(/(MQQBrowser)\/([\d\.]+)/), // 匹配 QQ 浏览器
@@ -33,10 +33,10 @@ let browsers = {
 }
 
 // iphone model
-let model = ua.match(/(iPhone\sOS).*m\/(\d+\.\d+)/)
+const model = ua.match(/(iPhone\sOS).*m\/(\d+\.\d+)/)
 
 // iphoneX model
-let iphoneXModel = ['10.3', '10.6']
+const iphoneXModel = ['10.3', '10.6']
 
 // 系统
 
@@ -101,7 +101,7 @@ sniff.pixelRatio = window.devicePixelRatio || 1
 sniff.retina = sniff.pixelRatio >= 2
 
 // 浏览器
-for (let key in browsers) {
+for (const key in browsers) {
   if (browsers[key]) {
     webApp = false
     sniff.browsers[key] = browsers[key][2]

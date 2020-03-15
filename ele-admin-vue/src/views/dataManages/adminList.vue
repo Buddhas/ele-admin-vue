@@ -1,3 +1,11 @@
+<!--
+ * @Descripttion: 
+ * @version: 
+ * @Author: 笑佛弥勒
+ * @Date: 2020-01-22 16:01:53
+ * @LastEditors: 笑佛弥勒
+ * @LastEditTime: 2020-03-15 22:15:18
+ -->
 <template>
   <div class="admin-list-wrapper">
     <el-table :data="adminData" style="width: 100%">

@@ -1,4 +1,4 @@
-import { get, post } from '../common/request'
+import { get, post } from 'common/js/request'
 
 // 登录
 const login = params => {
@@ -36,8 +36,8 @@ const createdFood = params => {
 }
 
 // 商家列表
-const findMerchantsByPage = params => {
-  return get('/merchants/findMerchantsByPage', params)
+const getMerchantsByPage = params => {
+  return get('/merchants/getMerchantsByPage', params)
 }
 
 // 删除商家
@@ -85,6 +85,15 @@ const findAdminByPage = params => {
   return get('/admin/findAdminByPage', params)
 }
 
+// 获取用户列表
+const getUserList = params => {
+  return get('/user/getUserList', params)
+}
+
+// 获取用户列表
+const isLogin = params => {
+  return get('/user/isLogin', params)
+}
 export default {
   login,
   getAllData,
@@ -93,7 +102,7 @@ export default {
   createFoodCategory,
   getCategoryByPid,
   createdFood,
-  findMerchantsByPage,
+  getMerchantsByPage,
   deleteMerchants,
   getMerchantsById,
   updateMerchants,
@@ -102,5 +111,7 @@ export default {
   getFoodById,
   updatedFood,
   getCurrentAdmin,
-  findAdminByPage
+  findAdminByPage,
+  getUserList,
+  isLogin
 }

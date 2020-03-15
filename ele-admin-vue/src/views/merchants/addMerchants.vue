@@ -151,8 +151,8 @@
 </template>
 
 <script>
-import { uploadImage } from '../../common/util'
-import { AMapService, picService } from '../../common/mixin'
+import { uploadImage } from 'common/js/util'
+import { AMapService, picService } from 'common/mixins/mixins'
 
 export default {
   mixins: [AMapService, picService],
@@ -372,11 +372,6 @@ export default {
     },
     // 新建商铺
     createMerchants() {},
-    // 上传商户头像
-    updateShopAvatar(params) {
-      const url = '/merchants/updateShopAvatar'
-      uploadImage(url, params.file)
-    },
     handleChange(val) {
       console.log('选中值')
       console.log(val)

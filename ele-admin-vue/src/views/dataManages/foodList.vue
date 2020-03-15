@@ -87,7 +87,7 @@ export default {
     handleEdit(index, data) {
       this.$router.push({
         path: '../layout/addFood.html',
-        query: { shopId: data.shop_id, foodId: data.id, isEdit: '1' }
+        query: { pid: data.shop_id, foodId: data.id, isEdit: '1' }
       })
     },
     // 删除按钮

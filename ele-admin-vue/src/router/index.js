@@ -4,7 +4,7 @@
  * @Author: 笑佛弥勒
  * @Date: 2019-09-15 08:19:18
  * @LastEditors: 笑佛弥勒
- * @LastEditTime: 2019-09-28 15:47:19
+ * @LastEditTime: 2020-03-15 22:02:18
  */
 import Vue from 'vue'
 import Router from 'vue-router'
@@ -15,20 +15,20 @@ const layout = () => import(/* webpackChunkName: "layout" */ '../views/layout/la
 const dataScreen = () => import(/* webpackChunkName: "dataScreen" */ '../views/dataScreen/dataScreen.vue')
 const addMerchants = () => import(/* webpackChunkName: "addMerchants" */ '../views/merchants/addMerchants.vue')
 const addFood = () => import(/* webpackChunkName: "addFood" */ '../views/merchants/addFood.vue')
-const merchantsList = () => import(/* webpackChunkName: "merchantsList" */ '../views/dataManage/merchantsList.vue')
-const foodList = () => import(/* webpackChunkName: "foodList" */ '../views/dataManage/foodList.vue')
-const adminList = () => import(/* webpackChunkName: "adminList" */ '../views/dataManage/adminList.vue')
-const orderList = () => import(/* webpackChunkName: "orderList" */ '../views/dataManage/orderList.vue')
-const userList = () => import(/* webpackChunkName: "userList" */ '../views/dataManage/userList.vue')
+const merchantsList = () => import(/* webpackChunkName: "merchantsList" */ '../views/dataManages/merchantsList.vue')
+const foodList = () => import(/* webpackChunkName: "foodList" */ '../views/dataManages/foodList.vue')
+const adminList = () => import(/* webpackChunkName: "adminList" */ '../views/dataManages/adminList.vue')
+const orderList = () => import(/* webpackChunkName: "orderList" */ '../views/dataManages/orderList.vue')
+const userList = () => import(/* webpackChunkName: "userList" */ '../views/dataManages/userList.vue')
 const setting = () => import(/* webpackChunkName: "setting" */ '../views/setting/setting.vue')
 
 Vue.use(Router)
 
-const base = `${process.env.BASE_URL}` // 动态获取二级目录
+// const base = `${process.env.BASE_URL}` // 动态获取二级目录
 
 const router = new Router({
   mode: 'history',
-  base: base,
+  base: '/vue',
   routes: [
     {
       path: '/login.html',
@@ -39,6 +39,8 @@ const router = new Router({
       path: '/layout',
       name: 'layout',
       component: layout,
+      redirect: '/layout/dataScreen.html',
+      meta: { needLogin: true },
       children: [
         {
           path: 'dataScreen.html',
@@ -95,10 +97,6 @@ const router = new Router({
           component: userList
         }
       ]
-    },
-    {
-      path: '*',
-      redirect: '/login.html'
     }
   ],
   scrollBehavior(to, from, savedPosition) {

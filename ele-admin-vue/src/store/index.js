@@ -1,27 +1,17 @@
-import Vue from 'vue';
-import Vuex from 'vuex';
-import mutations from './mutations'
-import actions from './actions'
+/*
+ * @Author: 笑佛弥勒
+ * @Date: 2020-01-05 15:47:10
+ * @LastEditTime: 2020-03-14 14:59:43
+ * @LastEditors: 笑佛弥勒
+ * @Description: In User Settings Edit
+ * @FilePath: \ele-vue\ele-vue\src\store\index.js
+ */
+import Vue from 'vue'
+import Vuex from 'vuex'
 
-import home from './home';
-
-Vue.use(Vuex);
-
-let modules = {
-    ...home,
-};
+Vue.use(Vuex)
 
 export default new Vuex.Store({
-    state: {
-        groups: [1]
-    },
-    modules,
-    actions,    // 根级别的 action
-    mutations,  // 根级别的 mutations
-    // 根级别的 getters
-    getters: {
-        getGroups(state) {
-            return state.groups
-        }
-    }
+  modules: {
+  }
 })

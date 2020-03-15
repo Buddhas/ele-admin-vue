@@ -43,7 +43,7 @@
 
 <script>
 import movements from '../../components/echarts/echarts'
-import { formatDate } from '../../common/util'
+import { formatDate } from 'common/js/util'
 export default {
   components: {
     movements

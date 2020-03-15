@@ -92,7 +92,7 @@
 </template>
 
 <script>
-import { picService } from '../../common/mixin'
+import { picService } from 'common/mixins/mixins'
 export default {
   mixins: [picService],
   data() {
@@ -115,7 +115,8 @@ export default {
       activeNames: [],
       showAddCategory: false,
       showTest: {},
-      pid: this.$route.query.foodId,
+      pid: this.$route.query.pid, // 商铺id
+      foodId: this.$route.query.foodId, // 食品id
       editFlag: false,
       btnText: '立即添加',
       ruleAddFoodCategory: {
@@ -146,11 +147,17 @@ export default {
     }
   },
   created() {
-    this._getCategoryByPid().then(() => {
-      if (this.pid) {
-        this.isEdit()
+    if (!this.pid) {
+      this.$message.error('请选择商铺')
+      this.$router.push({ path: './merchantsList.html'})
+    } else {
+      const params = {
+        pid: this.pid
       }
-    })
+      this._getCategoryByPid(params).then(() => {
+        this.isEdit()
+      })
+    }
   },
   methods: {
     // 是否编辑
@@ -206,7 +213,7 @@ export default {
     },
     // 创建食品按钮
     submitFoodForm(formName) {
-      this.foodDetail.shop_id = this.$route.query.shop_id || '123'
+      this.foodDetail.shop_id = this.pid
       this.foodDetail.category = this.categoryForm.categorySelect // 食品分类
       if (Number(this.foodDetail.category) === 0) {
         this.$message.error('请选择食品分类')

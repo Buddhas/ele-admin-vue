@@ -46,12 +46,12 @@
               <el-menu-item index="addMerchants.html">添加商铺</el-menu-item>
               <el-menu-item index="addFood.html">添加食品</el-menu-item>
             </el-submenu>
-            <el-submenu index="4">
+            <!-- <el-submenu index="4">
               <template slot="title">
                 <i class="el-icon-star-on"></i>图表
               </template>
               <el-menu-item index="visitor">用户分布</el-menu-item>
-            </el-submenu>
+            </el-submenu> -->
             <el-submenu index="5">
               <template slot="title">
                 <i class="el-icon-setting"></i>设置

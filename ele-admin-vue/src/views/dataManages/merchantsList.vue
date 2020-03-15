@@ -73,7 +73,7 @@ export default {
       })
     },
     handleAdd(detail) {
-      this.$router.push({ path: '/layout/addFood.html', query: { foodId: detail.id }})
+      this.$router.push({ path: '/layout/addFood.html', query: { pid: detail.id }})
     },
     // 获取商家分类
     _getCategory() {
@@ -90,9 +90,10 @@ export default {
     _getMerchants() {
       const params = {
         page: this.page,
-        pageSize: this.pageSize
+        pageSize: this.pageSize,
+        orderType: 0
       }
-      this.Service.findMerchantsByPage(params).then(res => {
+      this.Service.getMerchantsByPage(params).then(res => {
         if (res.status === 200) {
           this.merchantsData = res.data.rows
           this.totalPage = res.data.count

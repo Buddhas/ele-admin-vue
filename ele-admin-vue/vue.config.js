@@ -1,3 +1,11 @@
+/*
+ * @Descripttion: 
+ * @version: 
+ * @Author: 笑佛弥勒
+ * @Date: 2020-01-22 16:01:53
+ * @LastEditors: 笑佛弥勒
+ * @LastEditTime: 2020-03-15 12:07:11
+ */
 // vue.config.js
 const path = require('path')
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
@@ -37,6 +45,11 @@ module.exports = {
         target: 'http://127.0.0.1:7001',
         changeOrigin: true,
         secure: false
+      },
+      '/user/*': {
+        target: 'http://127.0.0.1:7001',
+        changeOrigin: true,
+        secure: false
       }
     }
   },
@@ -45,6 +58,7 @@ module.exports = {
     config.resolve.alias
       .set('@', resolve('src'))
       .set('assets', resolve('src/assets'))
+      .set('common', resolve('src/common'))
       .set('components', resolve('src/components'))
   },
 

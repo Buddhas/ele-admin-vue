@@ -1,6 +1,15 @@
+/*
+ * @Descripttion: 实例化axios
+ * @version: 1.0
+ * @Author: 笑佛弥勒
+ * @Date: 2020-01-22 16:01:53
+ * @LastEditors: 笑佛弥勒
+ * @LastEditTime: 2020-03-15 18:37:03
+ */
 import axios from 'axios'
 import env from '@/config/env'
-import Vue from 'vue'
+import router from '@/router/index'
+import { Message } from 'element-ui'
 
 /**
  * 自定义Axios实例
@@ -10,7 +19,6 @@ const AJAX = axios.create({
   timeout: 30000,
   withCredentials: env.credential
 })
-
 // 添加请求拦截器
 AJAX.interceptors.request.use(
   function(config) {
@@ -29,9 +37,15 @@ AJAX.interceptors.request.use(
 // 添加响应拦截器
 AJAX.interceptors.response.use(
   function(response) {
-    let status = [10001, 10002, 10003]
-    if (status.includes(response.data.status)) {
-
+    const loginError = [10003, 10004]
+    if (loginError.includes(response.data.status)) {
+      router.push({
+        path: '/login.html',
+        query: { redirect: location.href.split('/vue')[1] }
+      })
+      return
+    } else if (response.data.status != 200) {
+      Message.error({ message: response.data.message })
     } else {
       return response.data
     }
