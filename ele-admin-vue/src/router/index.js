@@ -15,12 +15,13 @@ const layout = () => import(/* webpackChunkName: "layout" */ '../views/layout/la
 const dataScreen = () => import(/* webpackChunkName: "dataScreen" */ '../views/dataScreen/dataScreen.vue')
 const addMerchants = () => import(/* webpackChunkName: "addMerchants" */ '../views/merchants/addMerchants.vue')
 const addFood = () => import(/* webpackChunkName: "addFood" */ '../views/merchants/addFood.vue')
-const merchantsList = () => import(/* webpackChunkName: "merchantsList" */ '../views/dataManages/merchantsList.vue')
-const foodList = () => import(/* webpackChunkName: "foodList" */ '../views/dataManages/foodList.vue')
-const adminList = () => import(/* webpackChunkName: "adminList" */ '../views/dataManages/adminList.vue')
-const orderList = () => import(/* webpackChunkName: "orderList" */ '../views/dataManages/orderList.vue')
-const userList = () => import(/* webpackChunkName: "userList" */ '../views/dataManages/userList.vue')
+const merchantsList = () => import(/* webpackChunkName: "merchantsList" */ '../views/dataManage/merchantsList.vue')
+const foodList = () => import(/* webpackChunkName: "foodList" */ '../views/dataManage/foodList.vue')
+const adminList = () => import(/* webpackChunkName: "adminList" */ '../views/dataManage/adminList.vue')
+const orderList = () => import(/* webpackChunkName: "orderList" */ '../views/dataManage/orderList.vue')
+const userList = () => import(/* webpackChunkName: "userList" */ '../views/dataManage/userList.vue')
 const setting = () => import(/* webpackChunkName: "setting" */ '../views/setting/setting.vue')
+// const adminList = () => import(/* webpackChunkName: "addMerchants" */ '../views/merchants/adminList.vue')
 
 Vue.use(Router)
 
@@ -34,6 +35,11 @@ const router = new Router({
       path: '/login.html',
       name: 'login',
       component: login
+    },
+    {
+      path: '/merchantsList.html',
+      name: 'merchantsList',
+      component: merchantsList
     },
     {
       path: '/layout',
