@@ -1,6 +1,6 @@
 <!--
- * @Descripttion: 
- * @version: 
+ * @Descripttion: 管理员列表组件
+ * @version: 1.0
  * @Author: 笑佛弥勒
  * @Date: 2020-01-22 16:01:53
  * @LastEditors: 笑佛弥勒
