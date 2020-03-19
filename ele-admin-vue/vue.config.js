@@ -8,8 +8,8 @@
  */
 // vue.config.js
 const path = require('path')
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
-  .BundleAnalyzerPlugin
+// const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
+//   .BundleAnalyzerPlugin
 
 function resolve(dir) {
   return path.join(__dirname, dir)
@@ -65,9 +65,9 @@ module.exports = {
   configureWebpack: config => {
     // 生产环境打包分析体积
     if (process.env.NODE_ENV === 'production') {
-      return {
-        plugins: [new BundleAnalyzerPlugin()]
-      }
+      // return {
+      //   plugins: [new BundleAnalyzerPlugin()]
+      // }
     }
   },
   css: {
