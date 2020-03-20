@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 image_version=`date +%Y%m%d%H%M`;
+cd /
 # 关闭shop_admin容器
 docker stop shop_admin || true;
 # 删除shop_admin容器
