@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+echo "开始执行docker命令"
 image_version=`date +%Y%m%d%H%M`;
 # 关闭shop_admin容器
 docker stop shop_admin || true;
@@ -7,8 +8,10 @@ docker rm shop_admin || true;
 # 删除shop/admin镜像
 docker rmi --force $(docker images | grep shop/admin | awk '{print $3}')
 # 构建shop/admin:$image_version镜像
+echo "开始docker build命令"
 docker build . -t shop/admin:$image_version;
 # 查看镜像列表
+echo "开始查看镜像列表"
 docker images;
 # 基于shop/admin 镜像 构建一个容器 shop_admin
 docker run -p 9527:80 -d --name shop_admin shop/admin:$image_version;
