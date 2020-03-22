@@ -1,4 +1,4 @@
-FROM node:node-13.10.0
+FROM node:12.14.0
 WORKDIR /app
 COPY package*.json ./
 RUN npm install -g cnpm --registry=https://registry.npm.taobao.org
