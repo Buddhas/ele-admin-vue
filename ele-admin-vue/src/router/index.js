@@ -4,7 +4,7 @@
  * @Author: 笑佛弥勒
  * @Date: 2019-09-15 08:19:18
  * @LastEditors: 笑佛弥勒
- * @LastEditTime: 2020-03-15 22:02:18
+ * @LastEditTime: 2020-03-22 10:35:10
  */
 import Vue from 'vue'
 import Router from 'vue-router'
@@ -30,7 +30,12 @@ Vue.use(Router)
 const router = new Router({
   mode: 'history',
   base: '/vue',
+  redirect: '/login.html',
   routes: [
+    {
+      path: '/',
+      redirect: '/login.html'
+    },
     {
       path: '/login.html',
       name: 'login',
