@@ -96,49 +96,49 @@
       <el-form-item label="上传商铺头像" prop="shop_avatar">
         <el-upload
           class="avatar-uploader"
-          action="/merchants/updateShopAvatar"
+          action="/api/merchants/updateShopAvatar"
           :show-file-list="false"
           :multiple="false"
           :on-success="updateAvatarSuccess"
           :before-upload="beforeAvatarUpload"
         >
-          <img v-if="ruleForm.shop_avatar" :src="ruleForm.shop_avatar" class="avatar" />
+          <img v-if="ruleForm.shop_avatar" :src="IMAGESDOMAIN + ruleForm.shop_avatar" class="avatar" />
           <i v-else class="el-icon-plus avatar-uploader-icon"></i>
         </el-upload>
       </el-form-item>
       <el-form-item label="上传营业执照" prop="business_license">
         <el-upload
           class="avatar-uploader"
-          action="/merchants/updateBusinessLicense"
+          action="/api/merchants/updateBusinessLicense"
           :show-file-list="false"
           :on-success="updateAvatarSuccess"
           :before-upload="beforeAvatarUpload"
         >
-          <img v-if="ruleForm.business_license" :src="ruleForm.business_license" class="avatar" />
+          <img v-if="ruleForm.business_license" :src="IMAGESDOMAIN + ruleForm.business_license" class="avatar" />
           <i v-else class="el-icon-plus avatar-uploader-icon"></i>
         </el-upload>
       </el-form-item>
       <el-form-item label="上传餐饮许可证" prop="catering_license">
         <el-upload
           class="avatar-uploader"
-          action="/merchants/updateCateringLicense"
+          action="/api/merchants/updateCateringLicense"
           :show-file-list="false"
           :on-success="updateAvatarSuccess"
           :before-upload="beforeAvatarUpload"
         >
-          <img v-if="ruleForm.catering_license" :src="ruleForm.catering_license" class="avatar" />
+          <img v-if="ruleForm.catering_license" :src="IMAGESDOMAIN + ruleForm.catering_license" class="avatar" />
           <i v-else class="el-icon-plus avatar-uploader-icon"></i>
         </el-upload>
       </el-form-item>
       <el-form-item label="上传商家环境" prop="shop_environment">
         <el-upload
           class="avatar-uploader"
-          action="/merchants/updateShopEnv"
+          action="/api/merchants/updateShopEnv"
           :show-file-list="false"
           :on-success="updateAvatarSuccess"
           :before-upload="beforeAvatarUpload"
         >
-          <img v-if="ruleForm.shop_environment" :src="ruleForm.shop_environment" class="avatar" />
+          <img v-if="ruleForm.shop_environment" :src="IMAGESDOMAIN + ruleForm.shop_environment" class="avatar" />
           <i v-else class="el-icon-plus avatar-uploader-icon"></i>
         </el-upload>
       </el-form-item>
@@ -151,7 +151,6 @@
 </template>
 
 <script>
-import { uploadImage } from 'common/js/util'
 import { AMapService, picService } from 'common/mixins/mixins'
 
 export default {
@@ -378,7 +377,7 @@ export default {
     },
     // 上传图片之前做限制
     beforeAvatarUpload(file) {
-      this.checkPic(file, 200)
+      return this.checkPic(file, 300)
     },
     // 图片上传成功回调
     updateAvatarSuccess(res) {

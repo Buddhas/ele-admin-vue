@@ -1,3 +1,13 @@
+/*
+ * @Descripttion: 
+ * @version: 
+ * @Author: 笑佛弥勒
+ * @Date: 2020-03-27 23:04:04
+ * @LastEditors: 笑佛弥勒
+ * @LastEditTime: 2020-03-27 23:58:02
+ */
+import GlobalSetting from "../../config/globalSetting"
+
 // 高德地图定位
 export const AMapService = {
   data() {
@@ -71,6 +81,14 @@ export const picService = {
         this.$message.error('图片太大，请重新选择')
         return false
       }
+    }
+  }
+}
+
+export const globalSetting = {
+  data() {
+    return {
+      IMAGESDOMAIN: GlobalSetting.IMAGESDOMAIN
     }
   }
 }

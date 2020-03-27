@@ -65,12 +65,12 @@
         <el-form-item label="上传食品图片" prop="image">
           <el-upload
             class="avatar-uploader textl"
-            action="/food/updateFoodImg"
+            action="/api/food/updateFoodImg"
             :show-file-list="false"
             :on-success="updateAvatarSuccess"
             :before-upload="beforeAvatarUpload"
           >
-            <img v-if="foodDetail.image" src class="avatar" />
+            <img v-if="foodDetail.image" :src="IMAGESDOMAIN + foodDetail.image" class="avatar" />
             <i v-else class="el-icon-plus avatar-uploader-icon"></i>
           </el-upload>
         </el-form-item>
