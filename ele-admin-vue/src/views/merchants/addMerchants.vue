@@ -277,7 +277,7 @@ export default {
       }
       this.Service.getMerchantsById(params).then(res => {
         if (res.status === 200) {
-          const result = res.data[0]
+          const result = res.data
           result.business_hours = {}
           result.full_deduction = {}
           result.category = []
