@@ -4,14 +4,14 @@
  * @Author: 笑佛弥勒
  * @Date: 2020-01-22 16:01:53
  * @LastEditors: 笑佛弥勒
- * @LastEditTime: 2020-03-15 22:15:18
+ * @LastEditTime: 2020-03-28 22:09:46
  -->
 <template>
   <div class="admin-list-wrapper">
     <el-table :data="adminData" style="width: 100%">
-      <el-table-column prop="user_name" label="姓名" />
-      <el-table-column prop="registe_time" label="注册日期" />
-      <el-table-column label="管理员">
+      <el-table-column align="center" prop="user_name" label="姓名" />
+      <el-table-column align="center" prop="registe_time" label="注册日期" />
+      <el-table-column align="center" label="管理员">
         <template slot-scope="scope">
           <span v-if="scope.row.permissions == 1">管理员</span>
           <span v-else>超级管理员</span>

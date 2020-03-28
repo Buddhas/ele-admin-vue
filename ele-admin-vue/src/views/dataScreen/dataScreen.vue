@@ -103,8 +103,10 @@ export default {
 .data-screen-wrapper {
   width: 100%;
   height: 100%;
-  padding: 20px;
   background-color: white;
+  .data-screen {
+    padding-left: 20px;
+  }
 }
 .title {
   line-height: 60px;

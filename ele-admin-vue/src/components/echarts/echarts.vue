@@ -146,11 +146,14 @@ export default {
 
 <style lang="scss">
 .echarts-wrapper {
-  display: flex;
   justify-content: center;
+  height: 100%;
+  padding-left: 20px;
+  background-color: #fff;
 }
 .echarts-data {
   width: 90%;
+  background-color: #fff;
   height: 450px;
 }
 </style>

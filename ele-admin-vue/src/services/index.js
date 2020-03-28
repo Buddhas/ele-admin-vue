@@ -92,7 +92,12 @@ const getUserList = params => {
 
 // 获取用户列表
 const isLogin = params => {
-  return get('/api/user/isLogin', params)
+  return get('/api/admin/isLogin', params)
+}
+
+// 退出登录
+const logOut = params => {
+  return post('/api/admin/logOut', params)
 }
 export default {
   login,
@@ -113,5 +118,6 @@ export default {
   getCurrentAdmin,
   findAdminByPage,
   getUserList,
-  isLogin
+  isLogin,
+  logOut
 }

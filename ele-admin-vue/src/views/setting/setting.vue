@@ -23,12 +23,12 @@
         <span class="info-label">更换头像:</span>
         <el-upload
           class="avatar-uploader textl"
-          action="/admin/updateAvatar"
+          action="/api/admin/updateAvatar"
           :show-file-list="false"
           :on-success="updateAvatarSuccess"
           :before-upload="beforeAvatarUpload"
         >
-          <img v-if="userInfo.avatar" src class="avatar" />
+          <img v-if="userInfo.avatar" :src="IMAGESDOMAIN + userInfo.avatar" class="avatar" />
           <i v-else class="el-icon-plus avatar-uploader-icon"></i>
         </el-upload>
       </p>
@@ -37,7 +37,9 @@
 </template>
 
 <script>
+import { picService } from 'common/mixins/mixins'
 export default {
+  mixins: [picService],
   data() {
     return {
       userInfo: {}
@@ -72,7 +74,9 @@ export default {
         this.$message.error('头像上传失败')
       }
     },
-    beforeAvatarUpload() {}
+    beforeAvatarUpload(file) {
+      return this.checkPic(file, 300)
+    }
   }
 }
 </script>

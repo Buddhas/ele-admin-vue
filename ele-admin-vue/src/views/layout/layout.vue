@@ -8,10 +8,12 @@
           <el-dropdown>
             <i class="el-icon-setting mr15"></i>
             <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item>退出登录</el-dropdown-item>
+              <el-dropdown-item>
+                <span @click="logOut">退出登录</span>
+              </el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
-          <span>王小虎</span>
+          <span>{{ userMsg.user_name }}</span>
         </div>
       </el-header>
       <!-- 侧边栏+内容 -->
@@ -36,7 +38,7 @@
               <el-menu-item index="userList.html">用户列表</el-menu-item>
               <el-menu-item index="merchantsList.html">商家列表</el-menu-item>
               <el-menu-item index="foodList.html">食品列表</el-menu-item>
-              <el-menu-item index="orderList.html">订单列表</el-menu-item>
+              <!-- <el-menu-item index="orderList.html">订单列表</el-menu-item> -->
               <el-menu-item index="adminList.html">管理员列表</el-menu-item>
             </el-submenu>
             <el-submenu index="3">
@@ -58,12 +60,12 @@
               </template>
               <el-menu-item index="setting.html">管理员设置</el-menu-item>
             </el-submenu>
-            <el-submenu index="6">
+            <!-- <el-submenu index="6">
               <template slot="title">
                 <i class="el-icon-warning"></i>说明
               </template>
               <el-menu-item index="explain">说明</el-menu-item>
-            </el-submenu>
+            </el-submenu> -->
           </el-menu>
         </el-aside>
         <!-- 内容 -->
@@ -85,7 +87,8 @@ export default {
     return {
       mainHeight: {
         maxHeight: ''
-      }
+      },
+      userMsg: {}
     }
   },
   computed: {
@@ -94,10 +97,27 @@ export default {
       return this.$route.path.replace('/layout/', '')
     }
   },
+  created() {
+    this.getUserMsg()
+  },
   mounted() {
     this.getMainHeight()
   },
   methods: {
+    logOut() {
+      this.Service.logOut().then((res) => {
+        if (res.status == 200) {
+          this.$message.success('退出登录成功')
+          this.$router.push({ path: '/login.html'})
+        }
+      })
+    },
+    // 获取用户信息
+    getUserMsg() {
+      this.Service.isLogin().then((res) => {
+        this.userMsg = res.data
+      })
+    },
     getMainHeight() {
       // 减去头部高度+页数高度
       this.mainHeight = document.body.clientHeight - 60 - 40 + 'px'

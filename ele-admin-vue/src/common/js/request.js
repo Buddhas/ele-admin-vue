@@ -4,7 +4,7 @@
  * @Author: 笑佛弥勒
  * @Date: 2020-01-22 16:01:53
  * @LastEditors: 笑佛弥勒
- * @LastEditTime: 2020-03-15 18:37:03
+ * @LastEditTime: 2020-03-28 23:04:14
  */
 import axios from 'axios'
 import env from '@/config/env'
@@ -37,7 +37,7 @@ AJAX.interceptors.request.use(
 // 添加响应拦截器
 AJAX.interceptors.response.use(
   function(response) {
-    const loginError = [10003, 10004]
+    const loginError = [1003, 1004]
     if (loginError.includes(response.data.status)) {
       router.push({
         path: '/login.html',

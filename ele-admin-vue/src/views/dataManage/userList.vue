@@ -4,15 +4,15 @@
  * @Author: 笑佛弥勒
  * @Date: 2020-01-22 16:01:53
  * @LastEditors: 笑佛弥勒
- * @LastEditTime: 2020-03-15 21:00:01
+ * @LastEditTime: 2020-03-28 22:09:26
  -->
 <template>
   <div class="user-list-wrapper">
     <el-table :data="userList" style="width: 100%">
-      <el-table-column label="用户id" prop="id" width="150" />
-      <el-table-column label="用户名称" prop="user_name" />
-      <el-table-column label="注册邮箱" prop="email" />
-      <el-table-column label="注册时间">
+      <el-table-column align="center" label="用户id" prop="id" width="150" />
+      <el-table-column align="center" label="用户名称" prop="user_name" />
+      <el-table-column align="center" label="注册邮箱" prop="email" />
+      <el-table-column align="center" label="注册时间">
         <template slot-scope="scope">
           {{ scope.row.created_at | _formatDate }}
         </template>
