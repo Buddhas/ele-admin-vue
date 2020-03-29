@@ -377,7 +377,7 @@ export default {
     },
     // 上传图片之前做限制
     beforeAvatarUpload(file) {
-      return this.checkPic(file, 300)
+      return this.checkPic(file, 500)
     },
     // 图片上传成功回调
     updateAvatarSuccess(res) {

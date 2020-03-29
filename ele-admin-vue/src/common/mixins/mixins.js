@@ -1,12 +1,12 @@
 /*
- * @Descripttion: 
- * @version: 
+ * @Descripttion: mixins
+ * @version: 1.0
  * @Author: 笑佛弥勒
  * @Date: 2020-03-27 23:04:04
  * @LastEditors: 笑佛弥勒
- * @LastEditTime: 2020-03-27 23:58:02
+ * @LastEditTime: 2020-03-29 15:22:25
  */
-import GlobalSetting from "../../config/globalSetting"
+import GlobalSetting from '../../config/globalSetting'
 
 // 高德地图定位
 export const AMapService = {
