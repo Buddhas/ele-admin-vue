@@ -315,13 +315,7 @@ export default {
       this.Service.createMerchants(this.ruleForm).then(res => {
         if (res.status === 200) {
           this.$message.success(res.message)
-          this.$refs[formName].resetFields()
-          this.ruleForm.business_hours = {}
-          this.ruleForm.full_deduction = {}
-          this.ruleForm.business_hours.start_time = ''
-          this.ruleForm.business_hours.end_time = ''
-          this.ruleForm.full_deduction.top_up = ''
-          this.ruleForm.full_deduction.minus = ''
+          this.$router.push({ path: '/layout/merchantsList.html' })
         } else {
           this.$message.error(res.message)
         }

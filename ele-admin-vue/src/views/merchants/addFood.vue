@@ -109,8 +109,8 @@ export default {
         category: 0,
         image: '',
         shop_id: '',
-        price: '',
-        package_price: ''
+        price: 1,
+        package_price: 1
       },
       activeNames: [],
       showAddCategory: false,
