@@ -108,7 +108,7 @@ export default {
       this.Service.logOut().then((res) => {
         if (res.status == 200) {
           this.$message.success('退出登录成功')
-          this.$router.push({ path: '/login.html'})
+          this.$router.push({ path: '/login.html' })
         }
       })
     },

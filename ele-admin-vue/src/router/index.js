@@ -56,7 +56,7 @@ const router = new Router({
         {
           path: 'dataScreen.html',
           name: 'dataScreen',
-          meta: ['添加数据', '添加商铺'],
+          meta: [],
           component: dataScreen
         },
         {
@@ -80,7 +80,7 @@ const router = new Router({
         {
           path: 'foodList.html',
           name: 'foodList',
-          meta: ['添加数据', '食品列表'],
+          meta: ['数据管理', '食品列表'],
           component: foodList
         },
         {
@@ -92,19 +92,19 @@ const router = new Router({
         {
           path: 'adminList.html',
           name: 'adminList',
-          meta: ['设置', '管理员列表'],
+          meta: ['数据管理', '管理员列表'],
           component: adminList
         },
         {
           path: 'orderList.html',
           name: 'orderList',
-          meta: ['设置', '订单列表'],
+          meta: ['数据管理', '订单列表'],
           component: orderList
         },
         {
           path: 'userList.html',
           name: 'userList',
-          meta: ['设置', '用户列表'],
+          meta: ['数据管理', '用户列表'],
           component: userList
         }
       ]

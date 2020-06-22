@@ -362,6 +362,12 @@ export default {
     },
     resetForm(formName) {
       this.$refs[formName].resetFields()
+      console.log(this.ruleForm, '++++++++++++++')
+      this.ruleForm.business_hours = {
+        start_time: '',
+        end_time: ''
+      }
+      this.ruleForm = JSON.parse(JSON.stringify(this.ruleForm))
     },
     // 新建商铺
     createMerchants() {},
